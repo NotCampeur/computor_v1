@@ -1,0 +1,29 @@
+===============================
+Equation: 42 = 42
+Reduced form: 
+Polynomial degree: 0
+===============================
+Equation: 42
+Error: Only one expression in the formula, two are required
+===============================
+Equation: 5^
+Error: Reached end of formula before finding degree
+===============================
+Equation: quatre egal 4
+Error: Invalid character in formula at position: 0
+===============================
+Equation: 6.480740698^2 = 42
+Reduced form: 
+Polynomial degree: 0
+===============================
+Equation: 54e2 = 0
+Reduced form: 
+Polynomial degree: 0
+===============================
+Equation: 42.000000000000000000000000000000000000002 = 42
+Reduced form: 
+Polynomial degree: 0
+===============================
+Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0
+Reduced form: 
+Polynomial degree: 2

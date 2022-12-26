@@ -6,7 +6,7 @@
 #    By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/12 20:05:44 by ldutriez          #+#    #+#              #
-#    Updated: 2022/12/25 12:00:07 by ldutriez         ###   ########.fr        #
+#    Updated: 2022/12/26 10:48:00 by ldutriez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ $(NAME):		$(OBJ) Makefile
 				
 test:			$(NAME)
 				@echo "-----\nTesting $(_YELLOW)$(NAME)$(_WHITE) ... \c"
-				@./unit_test.sh
+				@./tests/unit_test.sh
 				@echo "$(_GREEN)DONE$(_WHITE)\n-----"
 
 show:

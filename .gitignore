@@ -1,2 +1,4 @@
 objs/*.o
 computor_v1
+.vscode/
+tests/output.log
