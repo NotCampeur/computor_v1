@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 00:06:06 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 00:18:45 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,6 @@ class EquationSolver
 		, _solutions{0.0f, 0.0f}
 		{
 			_parse_formula(formula);
-			// std::cout << "First expression:" << std::endl;
-			// while (_first_expression_terms.empty() == false)
-			// {
-			// 	std::cout << _first_expression_terms.top() << std::endl;
-			// 	_first_expression_terms.pop();
-			// }
-			// std::cout << "Second expression:" << std::endl;
-			// while (_second_expression_terms.empty() == false)
-			// {
-			// 	std::cout << _second_expression_terms.top() << std::endl;
-			// 	_second_expression_terms.pop();
-			// }
 		}
 		
 		~EquationSolver() {}
@@ -113,16 +101,9 @@ class EquationSolver
 				{
 				case ' ':
 					if (is_constant == true)
-					{
-						// std::cout << "Pushing constant term: " << temporarycoefficient << std::endl;
 						_current_expression_terms->push(EquationTerm(temporarycoefficient, temporary_degree, 0));
-						// std::cout << "Expression size: " << _current_expression_terms->size() << std::endl;
-					}
 					else
-					{
 						_current_expression_terms->top().unknowns_degree = temporary_degree;
-						// std::cout << "Pushing unknown term: " << _current_expression_terms->top() << std::endl;
-					}
 					temporarycoefficient = 0.0f;
 					temporary_degree = 1;
 					is_constant = false;
@@ -130,7 +111,6 @@ class EquationSolver
 				case '=':
 					if (is_first_expression == false)
 						throw std::invalid_argument("Too many expressions in the formula, only two are allowed");
-					// std::cout << "Switching to second expression" << std::endl;
 					is_first_expression = false;
 					_current_expression_terms = &_second_expression_terms;
 					if (*(it + 1) == ' ')
@@ -179,15 +159,9 @@ class EquationSolver
 			if (is_first_expression == true)
 				throw std::invalid_argument("Only one expression in the formula, two are required");
 			if (is_constant == true)
-			{
-				// std::cout << "Pushing constant term: " << temporarycoefficient << std::endl;
 				_current_expression_terms->push(EquationTerm(temporarycoefficient, temporary_degree, 0));
-				// std::cout << "Expression size: " << _current_expression_terms->size() << std::endl;
-			}
 			else
-			{
 				_current_expression_terms->top().unknowns_degree = temporary_degree;
-			}
 		}
 
 		EquationSolver(EquationSolver const &obj);
