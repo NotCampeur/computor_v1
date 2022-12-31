@@ -11,6 +11,7 @@ fi
 ./"$FILE" "42 = 42" > "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "5^" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "5^six" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "quatre egal 4" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "6.480740698^2 = 42" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "54e2 = 0" >> "$OUTPUT_FILE" 2>&1

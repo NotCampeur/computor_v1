@@ -9,6 +9,9 @@ Error: Only one expression in the formula, two are required
 Equation: 5^
 Error: Reached end of formula before finding degree
 ===============================
+Equation: 5^six
+Error: Invalid character in formula, expected a digit got : s
+===============================
 Equation: quatre egal 4
 Error: Invalid character in formula at position: 0
 ===============================

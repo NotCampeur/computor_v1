@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2022/12/26 10:41:07 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 00:06:06 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ class EquationSolver
 					if (it == formula.end())
 						throw std::invalid_argument("Reached end of formula before finding degree");
 					if (*it < '0' || *it > '9')
-						throw std::invalid_argument("Invalid character in formula, expected a digit got : " + *it);
+						throw std::invalid_argument(std::string("Invalid character in formula, expected a digit got : ") + *it);
 					temporary_degree = *it - '0';
 					if (temporary_degree > _polynomial_degree && is_constant == false)
 						_polynomial_degree = temporary_degree;
