@@ -10,6 +10,7 @@ fi
 
 ./"$FILE" "42 = 42" > "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "42^0 = 1" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "5^" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "5^six" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "quatre egal 4" >> "$OUTPUT_FILE" 2>&1

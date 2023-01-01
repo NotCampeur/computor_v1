@@ -6,14 +6,14 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 05:08:34 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 05:30:44 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMPUTOR_V1_EQUATION_SOLVER_HPP
 # define COMPUTOR_V1_EQUATION_SOLVER_HPP
 
-# include <stack>
+# include <cmath>
 # include <vector>
 # include <string>
 # include <exception>
@@ -85,6 +85,7 @@ class EquationSolver
 			for (auto it = _second_expression_terms.begin(); it != _second_expression_terms.end(); ++it)
 				std::cout << *it;
 			std::cout << std::endl;
+			_simplify_expressions();
 			_reduce_expression();
 		}
 		
@@ -127,16 +128,7 @@ class EquationSolver
 						current_expression_terms->push_back(EquationTerm(temporary_coefficient, temporary_degree, 0));
 					}
 					else
-					{
-						try
-						{
-							EquationTerm &term = dynamic_cast<EquationTerm &>(current_expression_terms->back());
-							term.unknowns_degree = temporary_degree;
-						}
-						catch(const std::exception& e)
-						{
-						}
-					}
+						current_expression_terms->back().unknowns_degree = temporary_degree;
 					temporary_coefficient = 0.0f;
 					temporary_degree = 1;
 					is_constant = false;
@@ -199,37 +191,69 @@ class EquationSolver
 			if (is_constant == true)
 				current_expression_terms->push_back(EquationTerm(temporary_coefficient, temporary_degree, 0));
 			else
+				current_expression_terms->back().unknowns_degree = temporary_degree;
+		}
+
+		void _simplify_expressions(void)
+		{
+			for (std::vector<EquationTerm>::iterator it = _first_expression_terms.begin();
+				it != _first_expression_terms.end();
+				++it)
 			{
-				try
+				if (it->coefficient == 0.0f)
 				{
-					EquationTerm &term = dynamic_cast<EquationTerm &>(current_expression_terms->back());
-					term.unknowns_degree = temporary_degree;
+					_first_expression_terms.erase(it);
+					it = _first_expression_terms.begin();
 				}
-				catch(const std::exception& e)
+				else if (it->degree == 0)
+					it->coefficient = 1.0f;
+				else if (it->degree > 1)
 				{
+					std::cout << "constant power resolve : " << it->coefficient << "^" << it->degree << " = ";
+					it->coefficient = std::pow(it->coefficient, it->degree);
+					std::cout << *it << std::endl;
 				}
+				it->degree = 1;
+			}
+			for (std::vector<EquationTerm>::iterator it = _second_expression_terms.begin();
+				it != _second_expression_terms.end();
+				++it)
+			{
+				if (it->coefficient == 0.0f)
+				{
+					_second_expression_terms.erase(it);
+					--it;
+				}
+				else if (it->degree == 0)
+					it->coefficient = 1.0f;
+				else if (it->degree > 1)
+					it->coefficient = std::pow(it->coefficient, it->degree);
+				it->degree = 1;
 			}
 		}
 
 		void _reduce_expression(void)
 		{
-			// _reduced_expression_terms = _first_expression_terms;
-			// for (std::vector<EquationComponent *>::iterator it = _second_expression_terms.begin();
-			// 	it != _second_expression_terms.end();
-			// 	++it)
-			// {
-			// 	// try
-			// 	// {
-			// 	// 	EquationOperator &op = dynamic_cast<EquationOperator &>(**it);
-			// 	// 	if (op.operator_type == '-')
-			// 	// 		op.operator_type = '+';
-			// 	// 	else
-			// 	// 		op.operator_type = '-';
-			// 	// }
-			// 	// catch(const std::exception& e)
-			// 	// {
-			// 	// }
-			// }
+			_reduced_expression_terms = _first_expression_terms;
+			for (std::vector<EquationTerm>::iterator it = _second_expression_terms.begin();
+				it != _second_expression_terms.end();
+				++it)
+			{
+				bool found(false);
+				for (std::vector<EquationTerm>::iterator it2 = _reduced_expression_terms.begin();
+					it2 != _reduced_expression_terms.end();
+					++it2)
+				{
+					if (it->unknowns_degree == it2->unknowns_degree)
+					{
+						it2->coefficient -= it->coefficient;
+						found = true;
+						break;
+					}
+				}
+				if (found == false)
+					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, 0, it->unknowns_degree));
+			}
 		}
 
 		EquationSolver(EquationSolver const &obj);
