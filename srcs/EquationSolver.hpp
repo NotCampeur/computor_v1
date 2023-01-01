@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 05:30:44 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 14:38:49 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,11 +208,7 @@ class EquationSolver
 				else if (it->degree == 0)
 					it->coefficient = 1.0f;
 				else if (it->degree > 1)
-				{
-					std::cout << "constant power resolve : " << it->coefficient << "^" << it->degree << " = ";
 					it->coefficient = std::pow(it->coefficient, it->degree);
-					std::cout << *it << std::endl;
-				}
 				it->degree = 1;
 			}
 			for (std::vector<EquationTerm>::iterator it = _second_expression_terms.begin();
