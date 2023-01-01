@@ -18,6 +18,9 @@ Equation: 42^0 = 1
 Reduced form: 0 = 0
 Polynomial degree: 0
 ===============================
+Equation: 10^1.5 = 31.6227766
+Error: Invalid character in formula at position: 4
+===============================
 Equation: 5^
 Error: Reached end of formula before finding degree
 ===============================
@@ -38,6 +41,14 @@ Polynomial degree: 0
 Equation: 42.000000000000000000000000000000000000002 = 42
 Reduced form: 0 = 0
 Polynomial degree: 0
+===============================
+Equation: 42 * X^0 = 42 * X^0
+Reduced form: 0 = 0
+Polynomial degree: 0
+===============================
+Equation: 42 * X^1 = 42 * X^1
+Reduced form: 0X = 0
+Polynomial degree: 1
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0
 Reduced form: 4 + 4X + -9.3X^2 = 0
