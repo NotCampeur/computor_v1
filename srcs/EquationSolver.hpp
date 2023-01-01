@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 17:38:38 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 18:55:49 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ class EquationSolver
 			_parse_formula(formula);
 			_simplify_expressions();
 			_reduce_expression();
+			_simplify_reduced_form();
 			_store_main_coefficients();
 			print_reduced_expression();
 			std::cout << "Polynomial degree: " << _polynomial_degree << '\n';
@@ -116,9 +117,15 @@ class EquationSolver
 				std::cout << "Cannot find solutions.\n";
 			else if (_polynomial_degree == 2)
 			{
-				std::cout << _solutions[0] << '\n';
-				if (_discriminant > 0.0f)
-					std::cout << _solutions[1] << '\n';
+				if (_reduced_expression_terms.size() == 1
+					&& _reduced_expression_terms[0].coefficient == 0.0f)
+					std::cout << "All real numbers are solution.\n";
+				else
+				{
+					std::cout << _solutions[0] << '\n';
+					if (_discriminant > 0.0f)
+						std::cout << _solutions[1] << '\n';
+				}
 			}
 			else if (_polynomial_degree == 1)
 			{
@@ -237,9 +244,8 @@ class EquationSolver
 				if (it->coefficient == 0.0f)
 				{
 					_first_expression_terms.erase(it);
-					it = _first_expression_terms.begin();
-					if (it == _first_expression_terms.end())
-						break;
+					--it;
+					continue;
 				}
 				else if (it->degree == 0)
 					it->coefficient = 1.0f;
@@ -264,16 +270,15 @@ class EquationSolver
 					}
 				}
 			}
-			for (std::vector<EquationTerm>::iterator it = _second_expression_terms.begin();
+			for (std::vector<EquationTerm>::iterator it(_second_expression_terms.begin());
 				it != _second_expression_terms.end();
 				++it)
 			{
 				if (it->coefficient == 0.0f)
 				{
 					_second_expression_terms.erase(it);
-					it = _second_expression_terms.begin();
-					if (it == _second_expression_terms.end())
-						break;
+					--it;
+					continue;
 				}
 				else if (it->degree == 0)
 					it->coefficient = 1.0f;
@@ -286,12 +291,12 @@ class EquationSolver
 		void _reduce_expression(void)
 		{
 			_reduced_expression_terms = _first_expression_terms;
-			for (std::vector<EquationTerm>::iterator it = _second_expression_terms.begin();
+			for (std::vector<EquationTerm>::iterator it(_second_expression_terms.begin());
 				it != _second_expression_terms.end();
 				++it)
 			{
 				bool found(false);
-				for (std::vector<EquationTerm>::iterator it2 = _reduced_expression_terms.begin();
+				for (std::vector<EquationTerm>::iterator it2(_reduced_expression_terms.begin());
 					it2 != _reduced_expression_terms.end();
 					++it2)
 				{
@@ -305,6 +310,22 @@ class EquationSolver
 				if (found == false)
 					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, 0, it->unknowns_degree));
 			}
+		}
+
+		void _simplify_reduced_form(void)
+		{
+			for (std::vector<EquationTerm>::iterator it(_reduced_expression_terms.begin());
+				it != _reduced_expression_terms.end();
+				++it)
+			{
+				if (it->coefficient == 0.0f)
+				{
+					_reduced_expression_terms.erase(it);
+					--it;
+				}
+			}
+			if (_reduced_expression_terms.size() == 0)
+				_reduced_expression_terms.push_back(EquationTerm(0.0f, 1, 0));
 		}
 
 		void _store_main_coefficients(void)
@@ -324,6 +345,9 @@ class EquationSolver
 
 		void _compute_discriminant(void)
 		{
+			if (_reduced_expression_terms.size() == 1
+				&& _reduced_expression_terms[0].coefficient == 0)
+				return;
 			_discriminant = _b * _b - 4 * _a * _c;
 			if (_discriminant < 0.0f)
 				std::cout << "Discriminant is strictly negative, the two solutions are complex" << std::endl;

@@ -55,7 +55,7 @@ Polynomial degree: 0
 All real numbers are solution.
 ===============================
 Equation: 42 * X^1 = 42 * X^1
-Reduced form: 0X = 0
+Reduced form: 0 = 0
 Polynomial degree: 1
 All real numbers are solution.
 ===============================
@@ -67,9 +67,8 @@ Discriminant is strictly positive, two solutions exist
 0.905239
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 5 * X^0 + 4 * X^1 - 9.3 * X^2
-Reduced form: 0 + 0X + 0X^2 = 0
+Reduced form: 0 = 0
 Polynomial degree: 2
-Discriminant is equal to zero, one solution exist
 All real numbers are solution.
 ===============================
 Equation: 5 * X^0 + 4 * X^1 = 4 * X^0
