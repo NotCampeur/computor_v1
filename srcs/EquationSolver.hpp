@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 16:42:35 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 17:38:38 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,22 @@ class EquationSolver
 	public:
 		EquationSolver(const std::string & formula)
 		: _first_expression_terms(), _second_expression_terms()
-		, _reduced_expression_terms()
-		, _polynomial_degree(0), _discriminant(0.0f)
+		, _reduced_expression_terms(), _polynomial_degree(0)
+		, _a(0.0f), _b(0.0f), _c(0.0f), _discriminant(0.0f)
 		, _solutions{0.0f, 0.0f}
 		{
 			_parse_formula(formula);
 			_simplify_expressions();
 			_reduce_expression();
+			_store_main_coefficients();
 			print_reduced_expression();
 			std::cout << "Polynomial degree: " << _polynomial_degree << '\n';
 			if (_polynomial_degree > 2)
 				std::cout << "The polynomial degree is stricly greater than 2, I can't solve.\n";
-			else
-			{
+			else if (_polynomial_degree == 2)
 				_compute_discriminant();
-			}
+			if (_polynomial_degree <= 2)
+				_compute_solutions();
 		}
 		
 		~EquationSolver() {}
@@ -107,6 +108,32 @@ class EquationSolver
 					std::cout << "+ ";
 			}
 			std::cout << "= 0\n";
+		}
+
+		void print_solutions(void) const
+		{
+			if (_polynomial_degree > 2)
+				std::cout << "Cannot find solutions.\n";
+			else if (_polynomial_degree == 2)
+			{
+				std::cout << _solutions[0] << '\n';
+				if (_discriminant > 0.0f)
+					std::cout << _solutions[1] << '\n';
+			}
+			else if (_polynomial_degree == 1)
+			{
+				if (_reduced_expression_terms.size() == 1
+					&& _reduced_expression_terms[0].coefficient == 0.0f)
+					std::cout << "All real numbers are solution.\n";
+				else
+					std::cout << _solutions[0] << '\n';
+			}
+			else if (_polynomial_degree == 0
+				&& _reduced_expression_terms.size() == 1
+				&& _reduced_expression_terms[0].coefficient == 0.0f)
+				std::cout << "All real numbers are solution.\n";
+			else
+				std::cout << "There is no solution.\n";
 		}
 
 	private:
@@ -280,22 +307,24 @@ class EquationSolver
 			}
 		}
 
-		void _compute_discriminant(void)
+		void _store_main_coefficients(void)
 		{
-			float a(0.0f), b(0.0f), c(0.0f);
-
 			for (std::vector<EquationTerm>::iterator it = _reduced_expression_terms.begin();
 				it != _reduced_expression_terms.end();
 				++it)
 			{
 				if (it->unknowns_degree == 2)
-					a = it->coefficient;
+					_a = it->coefficient;
 				else if (it->unknowns_degree == 1)
-					b = it->coefficient;
+					_b = it->coefficient;
 				else if (it->unknowns_degree == 0)
-					c = it->coefficient;
+					_c = it->coefficient;
 			}
-			_discriminant = b * b - 4 * a * c;
+		}
+
+		void _compute_discriminant(void)
+		{
+			_discriminant = _b * _b - 4 * _a * _c;
 			if (_discriminant < 0.0f)
 				std::cout << "Discriminant is strictly negative, the two solutions are complex" << std::endl;
 			else if (_discriminant == 0.0f)
@@ -304,15 +333,30 @@ class EquationSolver
 				std::cout << "Discriminant is strictly positive, two solutions exist" << std::endl;
 		}
 
+		void _compute_solutions(void)
+		{
+			if (_polynomial_degree == 1)
+				_solutions[0] = _c / _b;
+			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
+			{
+				_solutions[0] = (-_b + std::sqrt(_discriminant)) / (2 * _a);
+				if (_discriminant > 0.0f)
+					_solutions[1] = (-_b - std::sqrt(_discriminant)) / (2 * _a);
+			}
+		}
+
 		EquationSolver(EquationSolver const &obj);
 		EquationSolver &operator=(EquationSolver const &obj);
 
 		std::vector<EquationTerm>	_first_expression_terms;
 		std::vector<EquationTerm>	_second_expression_terms;
 		std::vector<EquationTerm>	_reduced_expression_terms;
-		int								_polynomial_degree;
-		float							_discriminant;
-		float							_solutions[2];
+		int							_polynomial_degree;
+		float						_a;
+		float						_b;
+		float						_c;
+		float						_discriminant;
+		float						_solutions[2];
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 10:56:28 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 16:28:58 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 16:56:18 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int ac, char **av)
 	try
 	{
 		EquationSolver solver(av[1]);
+		solver.print_solutions();
 	}
 	catch (std::exception &e) {
 		std::cout << "Error: " << e.what() << std::endl;

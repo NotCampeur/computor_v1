@@ -23,6 +23,7 @@ fi
 ./"$FILE" "42 * X^0 = 42 * X^0" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42 * X^1 = 42 * X^1" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "5 * X^0 + 4 * X^1 = 4 * X^0" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0" >> "$OUTPUT_FILE" 2>&1
 
 diff tests/output.log tests/expected_output.log
