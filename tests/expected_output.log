@@ -66,6 +66,12 @@ Discriminant is strictly positive, two solutions exist
 -0.475131
 0.905239
 ===============================
+Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 5 * X^0 + 4 * X^1 - 9.3 * X^2
+Reduced form: 0 + 0X + 0X^2 = 0
+Polynomial degree: 2
+Discriminant is equal to zero, one solution exist
+All real numbers are solution.
+===============================
 Equation: 5 * X^0 + 4 * X^1 = 4 * X^0
 Reduced form: 1 + 4X = 0
 Polynomial degree: 1
