@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 10:56:28 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 05:09:01 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 16:28:58 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ int main(int ac, char **av)
 	try
 	{
 		EquationSolver solver(av[1]);
-		solver.print_reduced_expression();
-		int polynomial_degree(solver.polynomial_degree());
-		std::cout << "Polynomial degree: " << polynomial_degree << '\n';
-		if (polynomial_degree > 2)
-			throw std::invalid_argument("The polynomial degree is stricly greater than 2, I can't solve.");
 	}
 	catch (std::exception &e) {
 		std::cout << "Error: " << e.what() << std::endl;

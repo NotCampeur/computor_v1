@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 15:18:31 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 16:42:35 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,16 @@ class EquationSolver
 		, _solutions{0.0f, 0.0f}
 		{
 			_parse_formula(formula);
-			// std::cout << "Equation is : " << std::endl;
-			// for (auto it = _first_expression_terms.begin(); it != _first_expression_terms.end(); ++it)
-			// 	std::cout << *it;
-			// std::cout << "= ";
-			// for (auto it = _second_expression_terms.begin(); it != _second_expression_terms.end(); ++it)
-			// 	std::cout << *it;
-			// std::cout << std::endl;
 			_simplify_expressions();
 			_reduce_expression();
+			print_reduced_expression();
+			std::cout << "Polynomial degree: " << _polynomial_degree << '\n';
+			if (_polynomial_degree > 2)
+				std::cout << "The polynomial degree is stricly greater than 2, I can't solve.\n";
+			else
+			{
+				_compute_discriminant();
+			}
 		}
 		
 		~EquationSolver() {}
@@ -277,6 +278,30 @@ class EquationSolver
 				if (found == false)
 					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, 0, it->unknowns_degree));
 			}
+		}
+
+		void _compute_discriminant(void)
+		{
+			float a(0.0f), b(0.0f), c(0.0f);
+
+			for (std::vector<EquationTerm>::iterator it = _reduced_expression_terms.begin();
+				it != _reduced_expression_terms.end();
+				++it)
+			{
+				if (it->unknowns_degree == 2)
+					a = it->coefficient;
+				else if (it->unknowns_degree == 1)
+					b = it->coefficient;
+				else if (it->unknowns_degree == 0)
+					c = it->coefficient;
+			}
+			_discriminant = b * b - 4 * a * c;
+			if (_discriminant < 0.0f)
+				std::cout << "Discriminant is strictly negative, the two solutions are complex" << std::endl;
+			else if (_discriminant == 0.0f)
+				std::cout << "Discriminant is equal to zero, one solution exist" << std::endl;
+			else
+				std::cout << "Discriminant is strictly positive, two solutions exist" << std::endl;
 		}
 
 		EquationSolver(EquationSolver const &obj);
