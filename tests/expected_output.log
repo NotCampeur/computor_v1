@@ -1,10 +1,22 @@
 ===============================
 Equation: 42 = 42
-Reduced form: 
+Reduced form: 0 = 0
+Polynomial degree: 0
+===============================
+Equation: 42 = 52 - 20 + 10
+Reduced form: 0 = 0
+Polynomial degree: 0
+===============================
+Equation: 52 - 20 + 10 = 42
+Reduced form: 0 = 0
 Polynomial degree: 0
 ===============================
 Equation: 42
 Error: Only one expression in the formula, two are required
+===============================
+Equation: 42^0 = 1
+Reduced form: 0 = 0
+Polynomial degree: 0
 ===============================
 Equation: 5^
 Error: Reached end of formula before finding degree
@@ -16,22 +28,22 @@ Equation: quatre egal 4
 Error: Invalid character in formula at position: 0
 ===============================
 Equation: 6.480740698^2 = 42
-Reduced form: 
+Reduced form: -3.8147e-06 = 0
 Polynomial degree: 0
 ===============================
 Equation: 54e2 = 0
-Reduced form: 
+Reduced form: 5400 = 0
 Polynomial degree: 0
 ===============================
 Equation: 42.000000000000000000000000000000000000002 = 42
-Reduced form: 
+Reduced form: 0 = 0
 Polynomial degree: 0
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0
-Reduced form: 
+Reduced form: 4 + 4X + -9.3X^2 = 0
 Polynomial degree: 2
 ===============================
 Equation: 8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0
-Reduced form: 
+Reduced form: 5 + -6X + -5.6X^3 = 0
 Polynomial degree: 3
 Error: The polynomial degree is stricly greater than 2, I can't solve.

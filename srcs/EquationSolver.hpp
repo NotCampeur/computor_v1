@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 14:38:49 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 15:18:31 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ class EquationSolver
 		, _solutions{0.0f, 0.0f}
 		{
 			_parse_formula(formula);
-			std::cout << "Equation is : " << std::endl;
-			for (auto it = _first_expression_terms.begin(); it != _first_expression_terms.end(); ++it)
-				std::cout << *it;
-			std::cout << "= ";
-			for (auto it = _second_expression_terms.begin(); it != _second_expression_terms.end(); ++it)
-				std::cout << *it;
-			std::cout << std::endl;
+			// std::cout << "Equation is : " << std::endl;
+			// for (auto it = _first_expression_terms.begin(); it != _first_expression_terms.end(); ++it)
+			// 	std::cout << *it;
+			// std::cout << "= ";
+			// for (auto it = _second_expression_terms.begin(); it != _second_expression_terms.end(); ++it)
+			// 	std::cout << *it;
+			// std::cout << std::endl;
 			_simplify_expressions();
 			_reduce_expression();
 		}
@@ -100,7 +100,11 @@ class EquationSolver
 		{
 			std::cout << "Reduced form: ";
 			for (auto it = _reduced_expression_terms.begin(); it != _reduced_expression_terms.end(); ++it)
+			{
 				std::cout << *it;
+				if (it + 1 != _reduced_expression_terms.end())
+					std::cout << "+ ";
+			}
 			std::cout << "= 0\n";
 		}
 
@@ -194,9 +198,11 @@ class EquationSolver
 				current_expression_terms->back().unknowns_degree = temporary_degree;
 		}
 
+		// Simplify the expressions by removing terms with a coefficient of 0
+		// ,by computing the power of constant terms and by grouping alike terms
 		void _simplify_expressions(void)
 		{
-			for (std::vector<EquationTerm>::iterator it = _first_expression_terms.begin();
+			for (std::vector<EquationTerm>::iterator it(_first_expression_terms.begin());
 				it != _first_expression_terms.end();
 				++it)
 			{
@@ -204,12 +210,31 @@ class EquationSolver
 				{
 					_first_expression_terms.erase(it);
 					it = _first_expression_terms.begin();
+					if (it == _first_expression_terms.end())
+						break;
 				}
 				else if (it->degree == 0)
 					it->coefficient = 1.0f;
 				else if (it->degree > 1)
 					it->coefficient = std::pow(it->coefficient, it->degree);
 				it->degree = 1;
+			}
+			for (std::vector<EquationTerm>::iterator it(_first_expression_terms.begin());
+				it != _first_expression_terms.end();
+				++it)
+			{
+				for (std::vector<EquationTerm>::iterator it2(it + 1);
+					it2 != _first_expression_terms.end();
+					++it2)
+				{
+					if (it->unknowns_degree == it2->unknowns_degree)
+					{
+						it->coefficient += it2->coefficient;
+						_first_expression_terms.erase(it2);
+						--it;
+						break;
+					}
+				}
 			}
 			for (std::vector<EquationTerm>::iterator it = _second_expression_terms.begin();
 				it != _second_expression_terms.end();
@@ -218,7 +243,9 @@ class EquationSolver
 				if (it->coefficient == 0.0f)
 				{
 					_second_expression_terms.erase(it);
-					--it;
+					it = _second_expression_terms.begin();
+					if (it == _second_expression_terms.end())
+						break;
 				}
 				else if (it->degree == 0)
 					it->coefficient = 1.0f;
