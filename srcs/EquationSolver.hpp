@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 18:55:49 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 20:12:55 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,13 +153,13 @@ class EquationSolver
 			bool is_constant(false);
 			bool is_negative(false);
 			size_t convert_index(0);
+			int error_index(0);
 
-			for (std::string::const_iterator it = formula.begin();
-				it != formula.end();
-				++it)
+			for (size_t i(0); i != formula.size() + 1; ++i)
 			{
-				switch (*it)
+				switch (formula[i])
 				{
+				case '\0':
 				case ' ':
 					if (is_constant == true)
 					{
@@ -167,7 +167,12 @@ class EquationSolver
 						current_expression_terms->push_back(EquationTerm(temporary_coefficient, temporary_degree, 0));
 					}
 					else
-						current_expression_terms->back().unknowns_degree = temporary_degree;
+					{
+						if (current_expression_terms->size() != 0)
+							current_expression_terms->back().unknowns_degree = temporary_degree;
+						else
+							current_expression_terms->push_back(EquationTerm(temporary_coefficient, 1, temporary_degree));
+					}
 					temporary_coefficient = 0.0f;
 					temporary_degree = 1;
 					is_constant = false;
@@ -178,33 +183,40 @@ class EquationSolver
 						throw std::invalid_argument("Too many expressions in the formula, only two are allowed");
 					is_first_expression = false;
 					current_expression_terms = &_second_expression_terms;
-					if (*(it + 1) == ' ')
-						++it;
+					if (formula[i + 1] == ' ')
+						++i;
 					break;
 				case '-':
 					is_negative = true;
-					if (*(it + 1) == ' ')
-						++it;
+					if (formula[i + 1] == ' ')
+						++i;
 					break;
 				case '+':
 				case '*':
-					if (*(it + 1) == ' ')
-						++it;
+					if (formula[i + 1] == ' ')
+						++i;
 					break;
 				case '/':
 					throw std::invalid_argument("Division is not supported");
 				case 'X':
 					is_constant = false;
+					if (formula[i + 1] != '^')
+						temporary_degree = 1;
 					break;
 				case '^':
-					++it;
-					if (it == formula.end())
+					++i;
+					if (i == formula.size())
 						throw std::invalid_argument("Reached end of formula before finding degree");
-					if (*it < '0' || *it > '9')
-						throw std::invalid_argument(std::string("Invalid character in formula, expected a digit got : ") + *it);
-					temporary_degree = *it - '0';
-					if (temporary_degree > _polynomial_degree && is_constant == false)
-						_polynomial_degree = temporary_degree;
+					if (formula[i] < '0' || formula[i] > '9')
+							throw std::invalid_argument(std::string("Invalid character in formula, expected a digit got : ") + formula[i + error_index]);
+					temporary_degree = std::stof(formula.substr(i), &convert_index);
+					for (char c : formula.substr(i, convert_index))
+					{
+						if (c < '0' || c > '9')
+							throw std::invalid_argument(std::string("Invalid character in formula, expected a digit got : ") + formula[i + error_index]);
+						++error_index;
+					}
+					i += convert_index - 1;
 					break;
 				case '0':
 				case '1':
@@ -217,20 +229,16 @@ class EquationSolver
 				case '8':
 				case '9':
 					is_constant = true;
-					temporary_coefficient = std::stof(formula.substr(it - formula.begin()), &convert_index);
-					it += convert_index - 1;
+					temporary_coefficient = std::stof(formula.substr(i), &convert_index);
+					i += convert_index - 1;
 					break;
 				default:
-					throw std::invalid_argument("Invalid character in formula at position: " + std::to_string(it - formula.begin()));
+					throw std::invalid_argument("Invalid character in formula at position: " + std::to_string(i));
 					break;
 				}
 			}
 			if (is_first_expression == true)
 				throw std::invalid_argument("Only one expression in the formula, two are required");
-			if (is_constant == true)
-				current_expression_terms->push_back(EquationTerm(temporary_coefficient, temporary_degree, 0));
-			else
-				current_expression_terms->back().unknowns_degree = temporary_degree;
 		}
 
 		// Simplify the expressions by removing terms with a coefficient of 0
@@ -323,6 +331,8 @@ class EquationSolver
 					_reduced_expression_terms.erase(it);
 					--it;
 				}
+				if (it->unknowns_degree > _polynomial_degree)
+					_polynomial_degree = it->unknowns_degree;
 			}
 			if (_reduced_expression_terms.size() == 0)
 				_reduced_expression_terms.push_back(EquationTerm(0.0f, 1, 0));
@@ -360,7 +370,7 @@ class EquationSolver
 		void _compute_solutions(void)
 		{
 			if (_polynomial_degree == 1)
-				_solutions[0] = _c / _b;
+				_solutions[0] = -_c / _b;
 			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
 			{
 				_solutions[0] = (-_b + std::sqrt(_discriminant)) / (2 * _a);
