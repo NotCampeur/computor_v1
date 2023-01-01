@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 01:55:20 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/01 05:08:34 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,48 +19,25 @@
 # include <exception>
 # include <stdexcept>
 
-struct EquationComponent
-{
-	bool	is_term;
-
-	EquationComponent()
-	: is_term(false)
-	{}
-
-	EquationComponent(bool p_is_term)
-	: is_term(p_is_term)
-	{}
-
-	virtual ~EquationComponent() {}
-
-	virtual void print(void) const
-	{
-		if (is_term)
-			std::cout << "Term";
-		else
-			std::cout << "Operator";
-	}
-};
-
-struct EquationTerm : public EquationComponent
+struct EquationTerm
 {
 		float	coefficient;
 		int		degree;
 		int		unknowns_degree;
 
 		EquationTerm()
-		: EquationComponent(true), coefficient(0.0f), degree(1), unknowns_degree(0)
+		: coefficient(0.0f), degree(1), unknowns_degree(0)
 		{}
 		
 		EquationTerm(float p_coefficient, int p_degree, int p_unknowns_degree)
-		: EquationComponent(true), coefficient(p_coefficient), degree(p_degree)
+		: coefficient(p_coefficient), degree(p_degree)
 		, unknowns_degree(p_unknowns_degree)
 		{}
 		
 		~EquationTerm() {}
 		
 		EquationTerm(EquationTerm const &obj)
-		: EquationComponent(true), coefficient(obj.coefficient), degree(obj.degree)
+		: coefficient(obj.coefficient), degree(obj.degree)
 		, unknowns_degree(obj.unknowns_degree)
 		{}
 		
@@ -74,52 +51,22 @@ struct EquationTerm : public EquationComponent
 			}
 			return (*this);
 		}
-
-		void print(void) const
-		{
-			std::cout << coefficient;
-			if (degree != 1)
-				std::cout << "^" << degree;
-			if (unknowns_degree != 0)
-			{
-				std::cout << "X";
-				if (unknowns_degree != 1)
-					std::cout << "^" << unknowns_degree;
-			}
-			std::cout << " ";
-		}
 };
 
-struct EquationOperator : public EquationComponent
+std::ostream &operator<<(std::ostream &os, const EquationTerm &obj)
 {
-		char operator_type;
-
-		EquationOperator()
-		: EquationComponent(false), operator_type('+')
-		{}
-
-		EquationOperator(char p_operator)
-		: EquationComponent(false), operator_type(p_operator)
-		{}
-
-		~EquationOperator() {}
-
-		EquationOperator(EquationOperator const &obj)
-		: EquationComponent(false), operator_type(obj.operator_type)
-		{}
-
-		EquationOperator &operator=(EquationOperator const &obj)
-		{
-			if (this != &obj)
-				operator_type = obj.operator_type;
-			return (*this);
-		}
-
-		void print(void) const
-		{
-			std::cout << operator_type << " ";
-		}
-};
+	os << obj.coefficient;
+	if (obj.degree != 1)
+		os << "^" << obj.degree;
+	if (obj.unknowns_degree != 0)
+	{
+		os << "X";
+		if (obj.unknowns_degree != 1)
+			os << "^" << obj.unknowns_degree;
+	}
+	os << " ";
+	return (os);
+}
 
 class EquationSolver
 {
@@ -133,37 +80,38 @@ class EquationSolver
 			_parse_formula(formula);
 			std::cout << "Equation is : " << std::endl;
 			for (auto it = _first_expression_terms.begin(); it != _first_expression_terms.end(); ++it)
-				(*it)->print();
+				std::cout << *it;
 			std::cout << "= ";
 			for (auto it = _second_expression_terms.begin(); it != _second_expression_terms.end(); ++it)
-				(*it)->print();
+				std::cout << *it;
 			std::cout << std::endl;
-			// _reduce_expression();
+			_reduce_expression();
 		}
 		
-		~EquationSolver()
-		{
-			for (auto it = _first_expression_terms.begin(); it != _first_expression_terms.end(); ++it)
-				delete *it;
-			for (auto it = _second_expression_terms.begin(); it != _second_expression_terms.end(); ++it)
-				delete *it;
-			for (auto it = _reduced_expression_terms.begin(); it != _reduced_expression_terms.end(); ++it)
-				delete *it;
-		}
+		~EquationSolver() {}
 	
 		int polynomial_degree() const
 		{
 			return _polynomial_degree;
 		}
 
+		void print_reduced_expression(void) const
+		{
+			std::cout << "Reduced form: ";
+			for (auto it = _reduced_expression_terms.begin(); it != _reduced_expression_terms.end(); ++it)
+				std::cout << *it;
+			std::cout << "= 0\n";
+		}
+
 	private:
 		void	_parse_formula(const std::string & formula)
 		{
 			bool	is_first_expression(true);
-			std::vector<EquationComponent *>	*current_expression_terms(&_first_expression_terms);
-			float temporarycoefficient(0.0f);
+			std::vector<EquationTerm>	*current_expression_terms(&_first_expression_terms);
+			float temporary_coefficient(0.0f);
 			int temporary_degree(1);
 			bool is_constant(false);
+			bool is_negative(false);
 			size_t convert_index(0);
 
 			for (std::string::const_iterator it = formula.begin();
@@ -174,21 +122,25 @@ class EquationSolver
 				{
 				case ' ':
 					if (is_constant == true)
-						current_expression_terms->push_back(new EquationTerm(temporarycoefficient, temporary_degree, 0));
+					{
+						temporary_coefficient = (is_negative == true) ? -temporary_coefficient : temporary_coefficient;
+						current_expression_terms->push_back(EquationTerm(temporary_coefficient, temporary_degree, 0));
+					}
 					else
 					{
 						try
 						{
-							EquationTerm &term = dynamic_cast<EquationTerm &>(*current_expression_terms->back());
+							EquationTerm &term = dynamic_cast<EquationTerm &>(current_expression_terms->back());
 							term.unknowns_degree = temporary_degree;
 						}
 						catch(const std::exception& e)
 						{
 						}
 					}
-					temporarycoefficient = 0.0f;
+					temporary_coefficient = 0.0f;
 					temporary_degree = 1;
 					is_constant = false;
+					is_negative = false;
 					break;
 				case '=':
 					if (is_first_expression == false)
@@ -198,10 +150,12 @@ class EquationSolver
 					if (*(it + 1) == ' ')
 						++it;
 					break;
-				case '+':
 				case '-':
-					current_expression_terms->push_back(new EquationOperator(*it));
+					is_negative = true;
+					if (*(it + 1) == ' ')
+						++it;
 					break;
+				case '+':
 				case '*':
 					if (*(it + 1) == ' ')
 						++it;
@@ -232,7 +186,7 @@ class EquationSolver
 				case '8':
 				case '9':
 					is_constant = true;
-					temporarycoefficient = std::stof(formula.substr(it - formula.begin()), &convert_index);
+					temporary_coefficient = std::stof(formula.substr(it - formula.begin()), &convert_index);
 					it += convert_index - 1;
 					break;
 				default:
@@ -243,12 +197,12 @@ class EquationSolver
 			if (is_first_expression == true)
 				throw std::invalid_argument("Only one expression in the formula, two are required");
 			if (is_constant == true)
-				current_expression_terms->push_back(new EquationTerm(temporarycoefficient, temporary_degree, 0));
+				current_expression_terms->push_back(EquationTerm(temporary_coefficient, temporary_degree, 0));
 			else
 			{
 				try
 				{
-					EquationTerm &term = dynamic_cast<EquationTerm &>(*current_expression_terms->back());
+					EquationTerm &term = dynamic_cast<EquationTerm &>(current_expression_terms->back());
 					term.unknowns_degree = temporary_degree;
 				}
 				catch(const std::exception& e)
@@ -257,12 +211,33 @@ class EquationSolver
 			}
 		}
 
+		void _reduce_expression(void)
+		{
+			// _reduced_expression_terms = _first_expression_terms;
+			// for (std::vector<EquationComponent *>::iterator it = _second_expression_terms.begin();
+			// 	it != _second_expression_terms.end();
+			// 	++it)
+			// {
+			// 	// try
+			// 	// {
+			// 	// 	EquationOperator &op = dynamic_cast<EquationOperator &>(**it);
+			// 	// 	if (op.operator_type == '-')
+			// 	// 		op.operator_type = '+';
+			// 	// 	else
+			// 	// 		op.operator_type = '-';
+			// 	// }
+			// 	// catch(const std::exception& e)
+			// 	// {
+			// 	// }
+			// }
+		}
+
 		EquationSolver(EquationSolver const &obj);
 		EquationSolver &operator=(EquationSolver const &obj);
 
-		std::vector<EquationComponent *>	_first_expression_terms;
-		std::vector<EquationComponent *>	_second_expression_terms;
-		std::vector<EquationComponent *>	_reduced_expression_terms;
+		std::vector<EquationTerm>	_first_expression_terms;
+		std::vector<EquationTerm>	_second_expression_terms;
+		std::vector<EquationTerm>	_reduced_expression_terms;
 		int								_polynomial_degree;
 		float							_discriminant;
 		float							_solutions[2];
