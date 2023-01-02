@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/01 20:12:55 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:07:12 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,16 @@ class EquationSolver
 		, _a(0.0f), _b(0.0f), _c(0.0f), _discriminant(0.0f)
 		, _solutions{0.0f, 0.0f}
 		{
-			_parse_formula(formula);
+			std::string trimmed_formula(formula);
+			for (size_t i(0); i != trimmed_formula.size(); ++i)
+			{
+				if (trimmed_formula[i] != ' ')
+				{
+					trimmed_formula.erase(0, i);
+					break;
+				}
+			}
+			_parse_formula(trimmed_formula);
 			_simplify_expressions();
 			_reduce_expression();
 			_simplify_reduced_form();
@@ -144,101 +153,107 @@ class EquationSolver
 		}
 
 	private:
-		void	_parse_formula(const std::string & formula)
+		void _parse_formula(const std::string & formula)
 		{
-			bool	is_first_expression(true);
 			std::vector<EquationTerm>	*current_expression_terms(&_first_expression_terms);
-			float temporary_coefficient(0.0f);
-			int temporary_degree(1);
-			bool is_constant(false);
+			float current_coefficient(0.0f);
+			float temporary_exponant(0.0f);
+			int current_constant_degree(1);
+			int current_unknown_degree(0);
+			bool is_constant(true);
 			bool is_negative(false);
-			size_t convert_index(0);
-			int error_index(0);
+			bool is_exponant(false);
+			size_t convert_offset(0);
 
 			for (size_t i(0); i != formula.size() + 1; ++i)
 			{
 				switch (formula[i])
 				{
-				case '\0':
-				case ' ':
-					if (is_constant == true)
-					{
-						temporary_coefficient = (is_negative == true) ? -temporary_coefficient : temporary_coefficient;
-						current_expression_terms->push_back(EquationTerm(temporary_coefficient, temporary_degree, 0));
-					}
-					else
-					{
-						if (current_expression_terms->size() != 0)
-							current_expression_terms->back().unknowns_degree = temporary_degree;
+					case '0':
+					case '1':
+					case '2':
+					case '3':
+					case '4':
+					case '5':
+					case '6':
+					case '7':
+					case '8':
+					case '9':
+						if (is_exponant == true)
+						{
+							temporary_exponant = std::stof(formula.substr(i), &convert_offset);
+							if (is_constant == true)
+								current_constant_degree = temporary_exponant;
+							else
+								current_unknown_degree = temporary_exponant;
+							if (temporary_exponant != current_constant_degree
+								&& temporary_exponant != current_unknown_degree)
+								throw std::invalid_argument("Invalid exponant");
+						}
 						else
-							current_expression_terms->push_back(EquationTerm(temporary_coefficient, 1, temporary_degree));
-					}
-					temporary_coefficient = 0.0f;
-					temporary_degree = 1;
-					is_constant = false;
-					is_negative = false;
-					break;
-				case '=':
-					if (is_first_expression == false)
-						throw std::invalid_argument("Too many expressions in the formula, only two are allowed");
-					is_first_expression = false;
-					current_expression_terms = &_second_expression_terms;
-					if (formula[i + 1] == ' ')
-						++i;
-					break;
-				case '-':
-					is_negative = true;
-					if (formula[i + 1] == ' ')
-						++i;
-					break;
-				case '+':
-				case '*':
-					if (formula[i + 1] == ' ')
-						++i;
-					break;
-				case '/':
-					throw std::invalid_argument("Division is not supported");
-				case 'X':
-					is_constant = false;
-					if (formula[i + 1] != '^')
-						temporary_degree = 1;
-					break;
-				case '^':
-					++i;
-					if (i == formula.size())
-						throw std::invalid_argument("Reached end of formula before finding degree");
-					if (formula[i] < '0' || formula[i] > '9')
-							throw std::invalid_argument(std::string("Invalid character in formula, expected a digit got : ") + formula[i + error_index]);
-					temporary_degree = std::stof(formula.substr(i), &convert_index);
-					for (char c : formula.substr(i, convert_index))
-					{
-						if (c < '0' || c > '9')
-							throw std::invalid_argument(std::string("Invalid character in formula, expected a digit got : ") + formula[i + error_index]);
-						++error_index;
-					}
-					i += convert_index - 1;
-					break;
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-					is_constant = true;
-					temporary_coefficient = std::stof(formula.substr(i), &convert_index);
-					i += convert_index - 1;
-					break;
-				default:
-					throw std::invalid_argument("Invalid character in formula at position: " + std::to_string(i));
-					break;
+						{
+							current_coefficient = std::stof(formula.substr(i), &convert_offset);
+							current_coefficient = is_negative ? -current_coefficient : current_coefficient;
+						}
+						i += convert_offset - 1;
+						break;
+					case ' ':
+						break;
+					case '\0':
+					case '-':
+						is_negative = true;
+						if (i != 0)
+						{
+							current_expression_terms->push_back(EquationTerm(current_coefficient
+																		, current_constant_degree
+																		, current_unknown_degree));
+							current_coefficient = 0.0f;
+							current_constant_degree = 1;
+							current_unknown_degree = 0;
+							is_constant = true;
+							is_exponant = false;
+						}
+						break;
+					case '+':
+						current_expression_terms->push_back(EquationTerm(current_coefficient
+																		, current_constant_degree
+																		, current_unknown_degree));
+						current_coefficient = 0.0f;
+						current_constant_degree = 1;
+						current_unknown_degree = 0;
+						is_negative = false;
+						is_constant = true;
+						is_exponant = false;
+						break;
+					case '=':
+						current_expression_terms->push_back(EquationTerm(current_coefficient
+																		, current_constant_degree
+																		, current_unknown_degree));
+						current_coefficient = 0.0f;
+						current_constant_degree = 1;
+						current_unknown_degree = 0;
+						is_negative = false;
+						is_constant = true;
+						is_exponant = false;
+						current_expression_terms = &_second_expression_terms;
+						break;
+					case '*':
+						break;
+					case 'X':
+						is_constant = false;
+						current_unknown_degree = 1;
+						break;
+					case '^':
+						is_exponant = true;
+						break;
+					default:
+						throw std::invalid_argument(std::string("Unexpected character found in the formula: ") + formula[i]);
 				}
 			}
-			if (is_first_expression == true)
-				throw std::invalid_argument("Only one expression in the formula, two are required");
+			if (isdigit(formula.back()) == false && formula.back() != 'X')
+				throw std::invalid_argument("Formula looks incomplete");
+			if (current_expression_terms == &_first_expression_terms)
+				_second_expression_terms.push_back(EquationTerm(0.0f, 1, 0));
 		}
 
 		// Simplify the expressions by removing terms with a coefficient of 0
@@ -316,7 +331,7 @@ class EquationSolver
 					}
 				}
 				if (found == false)
-					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, 0, it->unknowns_degree));
+					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, 1, it->unknowns_degree));
 			}
 		}
 
@@ -331,7 +346,7 @@ class EquationSolver
 					_reduced_expression_terms.erase(it);
 					--it;
 				}
-				if (it->unknowns_degree > _polynomial_degree)
+				else if (it->unknowns_degree > _polynomial_degree)
 					_polynomial_degree = it->unknowns_degree;
 			}
 			if (_reduced_expression_terms.size() == 0)

@@ -15,7 +15,9 @@ Polynomial degree: 0
 All real numbers are solution.
 ===============================
 Equation: 42
-Error: Only one expression in the formula, two are required
+Reduced form: 42 = 0
+Polynomial degree: 0
+There is no solution.
 ===============================
 Equation: 42^0 = 1
 Reduced form: 0 = 0
@@ -23,16 +25,16 @@ Polynomial degree: 0
 All real numbers are solution.
 ===============================
 Equation: 10^1.5 = 31.6227766
-Error: Invalid character in formula, expected a digit got : .
+Error: Invalid exponant
 ===============================
 Equation: 5^
-Error: Reached end of formula before finding degree
+Error: Formula looks incomplete
 ===============================
 Equation: 5^six
-Error: Invalid character in formula, expected a digit got : s
+Error: Unexpected character found in the formula: s
 ===============================
 Equation: quatre egal 4
-Error: Invalid character in formula at position: 0
+Error: Unexpected character found in the formula: q
 ===============================
 Equation: 6.480740698^2 = 42
 Reduced form: -3.8147e-06 = 0
