@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/02 22:07:12 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/02 22:20:09 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,16 +215,6 @@ class EquationSolver
 						}
 						break;
 					case '+':
-						current_expression_terms->push_back(EquationTerm(current_coefficient
-																		, current_constant_degree
-																		, current_unknown_degree));
-						current_coefficient = 0.0f;
-						current_constant_degree = 1;
-						current_unknown_degree = 0;
-						is_negative = false;
-						is_constant = true;
-						is_exponant = false;
-						break;
 					case '=':
 						current_expression_terms->push_back(EquationTerm(current_coefficient
 																		, current_constant_degree
@@ -235,7 +225,8 @@ class EquationSolver
 						is_negative = false;
 						is_constant = true;
 						is_exponant = false;
-						current_expression_terms = &_second_expression_terms;
+						if (formula[i] == '=')
+							current_expression_terms = &_second_expression_terms;
 						break;
 					case '*':
 						break;
