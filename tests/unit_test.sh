@@ -30,4 +30,5 @@ fi
 ./"$FILE" "4X + 5 = 6X" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "4 * X^29 = 4 * X^29" >> "$OUTPUT_FILE" 2>&1
 
-diff tests/output.log tests/expected_output.log
+diff --expand-tabs --ignore-tab-expansion --side-by-side --left-column tests/output.log tests/expected_output.log > tests/diff.log
+echo "tests/diff.log created, please check it for differences between expected and actual output"
