@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/03 04:23:37 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/03 04:37:09 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ class EquationSolver
 				if (_reduced_expression_terms.size() == 1
 					&& _reduced_expression_terms[0].coefficient == 0.0f)
 					std::cout << "All real numbers are solution.\n";
-				else
+				else if (_discriminant >= 0.0f)
 				{
 					std::cout << _solutions[0] << '\n';
 					if (_discriminant > 0.0f)
@@ -154,7 +154,11 @@ class EquationSolver
 							if (is_multiplication == true)
 								current_coefficient *= std::stof(formula.substr(i), &convert_offset);
 							else
+							{
+								if (current_coefficient != 0.0f)
+									throw std::invalid_argument("Looks like the formula is not well formatted");
 								current_coefficient = std::stof(formula.substr(i), &convert_offset);
+							}
 							current_coefficient = is_negative ? -current_coefficient : current_coefficient;
 						}
 						i += convert_offset - 1;

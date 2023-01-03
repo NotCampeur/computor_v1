@@ -29,6 +29,11 @@ fi
 ./"$FILE" "8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "4X + 5 = 6X" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "4 * X^29 = 4 * X^29" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "4X*-5X" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "4X*-5X - 8X^2" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "2 * 15 * X = -7 * 4" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "2^3 * X^2 + 4 * 2X * X + 6 * 4" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "4 * 3X8 = 0" >> "$OUTPUT_FILE" 2>&1
 
 diff --expand-tabs --ignore-tab-expansion --side-by-side --left-column tests/output.log tests/expected_output.log > tests/diff.log
 echo "tests/diff.log created, please check it for differences between expected and actual output"
