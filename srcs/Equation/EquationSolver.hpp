@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/03 03:35:40 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/03 04:18:35 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ class EquationSolver
 			std::vector<EquationTerm>	*current_expression_terms(&_first_expression_terms);
 			float current_coefficient(0.0f);
 			float temporary_exponant(0.0f);
+			int check_unknown_degree(0);
 			int current_unknown_degree(0);
 			bool is_constant(true);
 			bool is_negative(false);
@@ -136,9 +137,16 @@ class EquationSolver
 							if (is_constant == true)
 								current_coefficient = std::pow(current_coefficient, temporary_exponant);
 							else if (is_constant == false)
-								current_unknown_degree = temporary_exponant;
-							if (is_constant == false && temporary_exponant != current_unknown_degree)
-								throw std::invalid_argument("Invalid exponant");
+							{
+								if (is_multiplication == true)
+									current_unknown_degree += temporary_exponant;
+								else if (is_multiplication == false)
+									current_unknown_degree = temporary_exponant;
+								check_unknown_degree = temporary_exponant;
+								if (temporary_exponant != check_unknown_degree)
+									throw std::invalid_argument("Invalid exponant");
+								is_multiplication = false;
+							}
 							is_exponant = false;
 						}
 						else
@@ -190,8 +198,13 @@ class EquationSolver
 							|| formula[i - 1] == '=')
 							current_coefficient = is_negative ? -1.0f : 1.0f;
 						is_constant = false;
-						is_multiplication = false;
-						current_unknown_degree = 1;
+						if (formula[i + 1] != '^')
+						{
+							if (is_multiplication == true)
+								++current_unknown_degree;
+							else
+								current_unknown_degree = 1;
+						}
 						break;
 					case '^':
 						is_exponant = true;
