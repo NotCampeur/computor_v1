@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/02 22:48:53 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/03 03:35:40 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ class EquationSolver
 		, _a(0.0f), _b(0.0f), _c(0.0f), _discriminant(0.0f)
 		, _solutions{0.0f, 0.0f}
 		{
-			std::string trimmed_formula(formula);
-			for (size_t i(0); i != trimmed_formula.size(); ++i)
+			std::string spaceless_formula(formula);
+			for (auto it(spaceless_formula.begin()); it != spaceless_formula.end(); ++it)
 			{
-				if (trimmed_formula[i] != ' ')
+				if (*it == ' ')
 				{
-					trimmed_formula.erase(0, i);
-					break;
+					spaceless_formula.erase(it);
+					it--;
 				}
 			}
-			_parse_formula(trimmed_formula);
+			_parse_formula(spaceless_formula);
 			_simplify_expressions();
 			_reduce_expression();
 			_simplify_reduced_form();
@@ -109,11 +109,11 @@ class EquationSolver
 			std::vector<EquationTerm>	*current_expression_terms(&_first_expression_terms);
 			float current_coefficient(0.0f);
 			float temporary_exponant(0.0f);
-			int current_constant_degree(1);
 			int current_unknown_degree(0);
 			bool is_constant(true);
 			bool is_negative(false);
 			bool is_exponant(false);
+			bool is_multiplication(false);
 			size_t convert_offset(0);
 
 			for (size_t i(0); i != formula.size() + 1; ++i)
@@ -134,55 +134,63 @@ class EquationSolver
 						{
 							temporary_exponant = std::stof(formula.substr(i), &convert_offset);
 							if (is_constant == true)
-								current_constant_degree = temporary_exponant;
-							else
+								current_coefficient = std::pow(current_coefficient, temporary_exponant);
+							else if (is_constant == false)
 								current_unknown_degree = temporary_exponant;
-							if (temporary_exponant != current_constant_degree
-								&& temporary_exponant != current_unknown_degree)
+							if (is_constant == false && temporary_exponant != current_unknown_degree)
 								throw std::invalid_argument("Invalid exponant");
+							is_exponant = false;
 						}
 						else
 						{
-							current_coefficient = std::stof(formula.substr(i), &convert_offset);
+							if (is_multiplication == true)
+								current_coefficient *= std::stof(formula.substr(i), &convert_offset);
+							else
+								current_coefficient = std::stof(formula.substr(i), &convert_offset);
 							current_coefficient = is_negative ? -current_coefficient : current_coefficient;
 						}
 						i += convert_offset - 1;
 						break;
-					case ' ':
-						break;
-					case '\0':
 					case '-':
 						is_negative = true;
+						if (is_multiplication == true)
+							break;
 						if (i != 0)
 						{
 							current_expression_terms->push_back(EquationTerm(current_coefficient
-																		, current_constant_degree
 																		, current_unknown_degree));
 							current_coefficient = 0.0f;
-							current_constant_degree = 1;
 							current_unknown_degree = 0;
 							is_constant = true;
 							is_exponant = false;
+							is_multiplication = false;
 						}
 						break;
+					case '\0':
 					case '+':
 					case '=':
 						current_expression_terms->push_back(EquationTerm(current_coefficient
-																		, current_constant_degree
 																		, current_unknown_degree));
 						current_coefficient = 0.0f;
-						current_constant_degree = 1;
 						current_unknown_degree = 0;
 						is_negative = false;
 						is_constant = true;
 						is_exponant = false;
+						is_multiplication = false;
 						if (formula[i] == '=')
 							current_expression_terms = &_second_expression_terms;
 						break;
 					case '*':
+						is_multiplication = true;
 						break;
 					case 'X':
+						if (i == 0
+							|| formula[i - 1] == '+'
+							|| formula[i - 1] == '-'
+							|| formula[i - 1] == '=')
+							current_coefficient = is_negative ? -1.0f : 1.0f;
 						is_constant = false;
+						is_multiplication = false;
 						current_unknown_degree = 1;
 						break;
 					case '^':
@@ -195,7 +203,7 @@ class EquationSolver
 			if (isdigit(formula.back()) == false && formula.back() != 'X')
 				throw std::invalid_argument("Formula looks incomplete");
 			if (current_expression_terms == &_first_expression_terms)
-				_second_expression_terms.push_back(EquationTerm(0.0f, 1, 0));
+				_second_expression_terms.push_back(EquationTerm(0.0f, 0));
 		}
 
 		// Simplify the expressions by removing terms with a coefficient of 0
@@ -210,13 +218,7 @@ class EquationSolver
 				{
 					_first_expression_terms.erase(it);
 					--it;
-					continue;
 				}
-				else if (it->degree == 0)
-					it->coefficient = 1.0f;
-				else if (it->degree > 1)
-					it->coefficient = std::pow(it->coefficient, it->degree);
-				it->degree = 1;
 			}
 			for (std::vector<EquationTerm>::iterator it(_first_expression_terms.begin());
 				it != _first_expression_terms.end();
@@ -243,13 +245,7 @@ class EquationSolver
 				{
 					_second_expression_terms.erase(it);
 					--it;
-					continue;
 				}
-				else if (it->degree == 0)
-					it->coefficient = 1.0f;
-				else if (it->degree > 1)
-					it->coefficient = std::pow(it->coefficient, it->degree);
-				it->degree = 1;
 			}
 		}
 
@@ -273,7 +269,7 @@ class EquationSolver
 					}
 				}
 				if (found == false)
-					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, 1, it->unknowns_degree));
+					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, it->unknowns_degree));
 			}
 		}
 
@@ -292,7 +288,7 @@ class EquationSolver
 					_polynomial_degree = it->unknowns_degree;
 			}
 			if (_reduced_expression_terms.size() == 0)
-				_reduced_expression_terms.push_back(EquationTerm(0.0f, 1, 0));
+				_reduced_expression_terms.push_back(EquationTerm(0.0f, 0));
 		}
 
 		void _store_main_coefficients(void)
