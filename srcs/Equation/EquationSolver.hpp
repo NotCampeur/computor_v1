@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/03 04:18:35 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/03 04:23:37 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ class EquationSolver
 								++current_unknown_degree;
 							else
 								current_unknown_degree = 1;
+							is_multiplication = false;
 						}
 						break;
 					case '^':
