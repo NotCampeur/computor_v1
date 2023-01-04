@@ -6,7 +6,7 @@
 #    By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/12 20:05:44 by ldutriez          #+#    #+#              #
-#    Updated: 2022/12/26 10:48:00 by ldutriez         ###   ########.fr        #
+#    Updated: 2023/01/04 17:10:34 by ldutriez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,6 @@ INC_DIR = 		$(shell find includes -type d) \
 OBJ_DIR = 		objs
 
 vpath %.cpp $(foreach dir, $(SRC_DIR), $(dir):)
-
-SOLVER	= 		EquationSolver.hpp
 
 SRC 	=		main.cpp
 
@@ -79,7 +77,7 @@ all:			$(NAME)
 
 $(NAME):		$(OBJ) Makefile
 				@echo "-----\nCompiling $(_YELLOW)$@$(_WHITE) ... \c"
-				@$(CC) $(CFLAGS) $(IFLAGS) $(TEST_OBJ) $< -o $(NAME) $(LDFLAGS)
+				@$(CC) $(CFLAGS) $(IFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
 				@echo "$(_GREEN)DONE$(_WHITE)\n-----"
 				
 test:			$(NAME)
