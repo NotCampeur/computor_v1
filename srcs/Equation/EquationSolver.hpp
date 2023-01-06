@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/03 04:51:20 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/06 16:10:24 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,20 @@ class EquationSolver
 
 		void print_reduced_expression(void) const
 		{
+			bool bad_unknown_exponent = false;
+			
 			std::cout << "Reduced form: ";
 			for (auto it = _reduced_expression_terms.begin(); it != _reduced_expression_terms.end(); ++it)
 			{
 				std::cout << *it;
+				if (it->unknowns_degree < 0)
+					bad_unknown_exponent = true;
 				if (it + 1 != _reduced_expression_terms.end())
 					std::cout << "+ ";
 			}
 			std::cout << "= 0\n";
+			if (bad_unknown_exponent == true)
+				throw std::invalid_argument("Reduced equation is not in form ax^2 + bx + c = 0");
 		}
 
 		void print_solutions(void) const
