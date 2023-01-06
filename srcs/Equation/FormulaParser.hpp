@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/03 05:19:16 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:29:43 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,11 @@ class FormulaParser
 			if (_is_exponant == true)
 			{
 				temporary_exponant = std::stof(_spaceless_formula.substr(_i), &convert_offset);
+				if (_is_negative == true)
+				{
+					temporary_exponant *= -1;
+					_is_negative = false;
+				}
 				if (_is_constant == true)
 					_current_coefficient = std::pow(_current_coefficient, temporary_exponant);
 				else if (_is_constant == false)
@@ -158,7 +163,8 @@ class FormulaParser
 						throw std::invalid_argument("Looks like the formula is not well formatted");
 					_current_coefficient = std::stof(_spaceless_formula.substr(_i), &convert_offset);
 				}
-				_current_coefficient = _is_negative ? -_current_coefficient : _current_coefficient;
+				_current_coefficient = (_is_negative == true) ? -_current_coefficient : _current_coefficient;
+				_is_negative = false;
 			}
 			_i += convert_offset - 1;			
 		}
@@ -166,9 +172,9 @@ class FormulaParser
 		void _minus_case(void)
 		{
 			_is_negative = true;
-			if (_is_multiplication == true)
+			if (_is_multiplication == true || _is_exponant == true)
 				return;
-			if (_i != 0)
+			if (_i != 0 && _spaceless_formula[_i - 1] != '=')
 			{
 				_current_expression_terms->push_back(EquationTerm(_current_coefficient
 															, _current_unknown_degree));
