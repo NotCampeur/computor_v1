@@ -37,6 +37,7 @@ fi
 ./"$FILE" "5^-2 = 0.04" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "X^4 * X^-2 + X + 14 = 17" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "X^2 + X + 14 + X^-2 = 17" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "5 - -5 = ----10" >> "$OUTPUT_FILE" 2>&1
 
 diff --expand-tabs --ignore-tab-expansion --side-by-side --left-column tests/output.log tests/expected_output.log > tests/diff.log
 echo "tests/diff.log created, please check it for differences between expected and actual output"

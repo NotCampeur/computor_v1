@@ -143,3 +143,8 @@ Discriminant is strictly positive, two solutions exist
 Equation: X^2 + X + 14 + X^-2 = 17
 Reduced form: 1X^2 + 1X + -3 + 1X^-2 = 0
 Error: Reduced equation is not in form ax^2 + bx + c = 0
+===============================
+Equation: 5 - -5 = ----10
+Reduced form: 0 = 0
+Polynomial degree: 0
+All real numbers are solution.

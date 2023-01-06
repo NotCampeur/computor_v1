@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/06 15:29:43 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/06 17:52:52 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,15 +163,18 @@ class FormulaParser
 						throw std::invalid_argument("Looks like the formula is not well formatted");
 					_current_coefficient = std::stof(_spaceless_formula.substr(_i), &convert_offset);
 				}
-				_current_coefficient = (_is_negative == true) ? -_current_coefficient : _current_coefficient;
-				_is_negative = false;
+				if (_is_negative == true)
+				{
+					_current_coefficient *= -1;
+					_is_negative = false;
+				}
 			}
 			_i += convert_offset - 1;			
 		}
 
 		void _minus_case(void)
 		{
-			_is_negative = true;
+			_is_negative = !_is_negative;
 			if (_is_multiplication == true || _is_exponant == true)
 				return;
 			if (_i != 0 && _spaceless_formula[_i - 1] != '=')
