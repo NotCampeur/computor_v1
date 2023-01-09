@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/06 16:10:24 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/09 22:11:38 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <exception>
 # include "EquationTerm.hpp"
 # include "FormulaParser.hpp"
+# include "Complex.hpp"
 
 class EquationSolver
 {
@@ -78,10 +79,10 @@ class EquationSolver
 				if (_reduced_expression_terms.size() == 1
 					&& _reduced_expression_terms[0].coefficient == 0.0f)
 					std::cout << "All real numbers are solution.\n";
-				else if (_discriminant >= 0.0f)
+				else
 				{
 					std::cout << _solutions[0] << '\n';
-					if (_discriminant > 0.0f)
+					if (_discriminant != 0.0f)
 						std::cout << _solutions[1] << '\n';
 				}
 			}
@@ -227,6 +228,11 @@ class EquationSolver
 				if (_discriminant > 0.0f)
 					_solutions[1] = (-_b - std::sqrt(_discriminant)) / (2 * _a);
 			}
+			else if (_polynomial_degree == 2 && _discriminant < 0.0f)
+			{
+				_solutions[0] = Complex(-_b / (2 * _a), std::sqrt(-_discriminant) / (2 * _a));
+				_solutions[1] = Complex(-_b / (2 * _a), -(std::sqrt(-_discriminant) / (2 * _a)));
+			}
 		}
 
 		EquationSolver(EquationSolver const &obj);
@@ -240,7 +246,7 @@ class EquationSolver
 		float						_b;
 		float						_c;
 		float						_discriminant;
-		float						_solutions[2];
+		Complex						_solutions[2];
 };
 
 #endif
