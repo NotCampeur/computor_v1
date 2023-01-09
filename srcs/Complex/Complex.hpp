@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:58:54 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/09 22:20:58 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/09 22:47:07 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ struct Complex
 				os << -obj.imaginary;
 			else if (obj.imaginary > 1 || obj.imaginary < -1)
 				os << obj.imaginary;
+			else if (obj.imaginary == -1.0f && obj.real == 0.0f)
+				os << "-";
 			os << "i";
 		}
 		return os;
