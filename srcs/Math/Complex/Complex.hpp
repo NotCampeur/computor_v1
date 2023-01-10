@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:58:54 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/09 22:47:07 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/10 22:25:30 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define COMPUTOR_V1_COMPLEX_HPP
 
 # include <iostream>
+
+void to_string_formatter(std::string & str);
 
 // Structure to store complex numbers in the form of a + bi
 struct Complex
@@ -74,27 +76,33 @@ struct Complex
 
 	friend std::ostream &operator<<(std::ostream &os, const Complex &obj)
 	{
-		if (obj.real == 0 && obj.imaginary == 0)
+		std::string form;
+
+		if (obj.real != 0.0f)
 		{
-			os << 0;
-			return os;
+			form = std::to_string(obj.real);
+			to_string_formatter(form);
 		}
-		if (obj.real != 0)
-			os << obj.real;
-		if (obj.imaginary > 0 && obj.real != 0)
-			os << " + ";
-		else if (obj.imaginary < 0 && obj.real != 0)
-			os << " - ";
-		if (obj.imaginary != 0)
+		if (obj.imaginary != 0.0f)
 		{
-			if (obj.imaginary < -1 && obj.real != 0)
-				os << -obj.imaginary;
-			else if (obj.imaginary > 1 || obj.imaginary < -1)
-				os << obj.imaginary;
-			else if (obj.imaginary == -1.0f && obj.real == 0.0f)
-				os << "-";
-			os << "i";
+			if (obj.real != 0.0f)
+				form += ' ';
+			if (obj.imaginary > 0.0f && form.size() != 0)
+				form += "+ ";
+			else if (obj.imaginary < 0.0f)
+				form += "-";
+			if (obj.imaginary > 1.0f || obj.imaginary < -1.0f)
+			{
+				if (obj.real != 0 && obj.imaginary < 0.0f)
+					form += ' ';
+				form += std::to_string(std::abs(obj.imaginary));
+				to_string_formatter(form);
+			}
+			form += "i";
 		}
+		if (form.size() == 0)
+			form = "0";
+		os << form;
 		return os;
 	}
 };
