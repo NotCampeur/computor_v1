@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/10 02:47:56 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/10 22:23:07 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "Complex.hpp"
 
 float squareRoot(float number, int precision);
+
 class EquationSolver
 {
 	public:
@@ -225,18 +226,12 @@ class EquationSolver
 				_solutions[0] = -_c / _b;
 			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
 			{
-				// std::cout << _discriminant << std::endl;
-				// std::cout << std::sqrt(_discriminant) << std::endl;
-				// std::cout << squareRoot(_discriminant, 5) << std::endl;
 				_solutions[0] = (-_b + squareRoot(_discriminant, 5)) / (2 * _a);
 				if (_discriminant > 0.0f)
 					_solutions[1] = (-_b - squareRoot(_discriminant, 5)) / (2 * _a);
 			}
 			else if (_polynomial_degree == 2 && _discriminant < 0.0f)
 			{
-				// std::cout << _discriminant << std::endl;
-				// std::cout << Complex(0, std::sqrt(-_discriminant)) << std::endl;
-				// std::cout << Complex(0, squareRoot(-_discriminant, 5)) << std::endl;
 				_solutions[0] = Complex(-_b / (2 * _a), squareRoot(-_discriminant, 5) / (2 * _a));
 				_solutions[1] = Complex(-_b / (2 * _a), -(squareRoot(-_discriminant, 5) / (2 * _a)));
 			}
