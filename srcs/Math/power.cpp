@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   computor_v1.hpp                                    :+:      :+:    :+:   */
+/*   power.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/25 11:20:19 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/10 02:46:48 by ldutriez         ###   ########.fr       */
+/*   Created: 2023/01/10 01:48:12 by ldutriez          #+#    #+#             */
+/*   Updated: 2023/01/10 01:55:14 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPUTOR_V1_HPP
-# define COMPUTOR_V1_HPP
+float power(float number, float power)
+{
+	float result = 1;
 
-# include <iostream>
-# include "EquationSolver.hpp"
-
-float squareRoot(float number, int precision);
-float power(float number, float power);
-
-#endif
+	if (power == 0)
+		return 1;
+	if (power < 0)
+	{
+		power = -power;
+		number = 1 / number;
+	}
+	while (power > 1.0f)
+	{
+		--power;
+		number *= number;
+	}
+	result = number;
+	return result;
+}
