@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/10 22:23:07 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:31:08 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ class EquationSolver
 			FormulaParser(formula).get_expression_terms(_first_expression_terms, _second_expression_terms);
 			_simplify_expressions();
 			_reduce_expression();
-			_simplify_reduced_form();
 			_store_main_coefficients();
-			print_reduced_expression();
 			std::cout << "Polynomial degree: " << _polynomial_degree << '\n';
 			if (_polynomial_degree > 2)
 				std::cout << "The polynomial degree is stricly greater than 2, I can't solve.\n";
@@ -52,24 +50,6 @@ class EquationSolver
 		int polynomial_degree() const
 		{
 			return _polynomial_degree;
-		}
-
-		void print_reduced_expression(void) const
-		{
-			bool bad_unknown_exponent = false;
-			
-			std::cout << "Reduced form: ";
-			for (auto it = _reduced_expression_terms.begin(); it != _reduced_expression_terms.end(); ++it)
-			{
-				std::cout << *it;
-				if (it->unknowns_degree < 0)
-					bad_unknown_exponent = true;
-				if (it + 1 != _reduced_expression_terms.end())
-					std::cout << "+ ";
-			}
-			std::cout << "= 0\n";
-			if (bad_unknown_exponent == true)
-				throw std::invalid_argument("Reduced equation is not in form ax^2 + bx + c = 0");
 		}
 
 		void print_solutions(void) const
@@ -147,6 +127,34 @@ class EquationSolver
 					--it;
 				}
 			}
+			std::cout << "Simplified equation: ";
+			_print_terms(_first_expression_terms);
+			std::cout << "= ";
+			if (_second_expression_terms.size() == 0)
+				std::cout << "0\n";
+			else
+			{
+				_print_terms(_second_expression_terms);
+				std::cout << '\n';
+			}
+		}
+
+		// Print the terms of an expression using EquationTerm::operator<<
+		void _print_terms(std::vector<EquationTerm> const &terms) const
+		{
+			for (std::vector<EquationTerm>::const_iterator it(terms.begin());
+				it != terms.end();
+				++it)
+			{
+				std::cout << *it;
+				if (it + 1 != terms.end())
+				{
+					if ((it + 1)->coefficient >= 0.0f)
+						std::cout << "+ ";
+					else
+						std::cout << "- ";
+				}
+			}
 		}
 
 		void _reduce_expression(void)
@@ -164,6 +172,8 @@ class EquationSolver
 					if (it->unknowns_degree == it2->unknowns_degree)
 					{
 						it2->coefficient -= it->coefficient;
+						if (it2->coefficient == 0.0f)
+							_reduced_expression_terms.erase(it2);
 						found = true;
 						break;
 					}
@@ -171,24 +181,23 @@ class EquationSolver
 				if (found == false)
 					_reduced_expression_terms.push_back(EquationTerm(-it->coefficient, it->unknowns_degree));
 			}
-		}
-
-		void _simplify_reduced_form(void)
-		{
+			bool bad_unknown_exponent = false;
 			for (std::vector<EquationTerm>::iterator it(_reduced_expression_terms.begin());
 				it != _reduced_expression_terms.end();
 				++it)
 			{
-				if (it->coefficient == 0.0f)
-				{
-					_reduced_expression_terms.erase(it);
-					--it;
-				}
-				else if (it->unknowns_degree > _polynomial_degree)
+				if (it->unknowns_degree < 0)
+					bad_unknown_exponent = true;
+				if (it->unknowns_degree > _polynomial_degree)
 					_polynomial_degree = it->unknowns_degree;
 			}
 			if (_reduced_expression_terms.size() == 0)
 				_reduced_expression_terms.push_back(EquationTerm(0.0f, 0));
+			std::cout << "Reduced equation: ";
+			_print_terms(_reduced_expression_terms);
+			std::cout << "= 0\n";
+			if (bad_unknown_exponent == true)
+				throw std::invalid_argument("Reduced equation is not in form ax^2 + bx + c = 0");
 		}
 
 		void _store_main_coefficients(void)
@@ -204,6 +213,7 @@ class EquationSolver
 				else if (it->unknowns_degree == 0)
 					_c = it->coefficient;
 			}
+			std::cout << "Isolating coefficients: a = " << _a << ", b = " << _b << ", c = " << _c << '\n';
 		}
 
 		void _compute_discriminant(void)
@@ -212,26 +222,32 @@ class EquationSolver
 				&& _reduced_expression_terms[0].coefficient == 0)
 				return;
 			_discriminant = _b * _b - 4 * _a * _c;
+			std::cout << "Calcul of discriminant for second degree equation: " << _discriminant << '\n';
 			if (_discriminant < 0.0f)
-				std::cout << "Discriminant is strictly negative, the two solutions are complex" << std::endl;
+				std::cout << "Discriminant is strictly negative, the two solutions are complex\n";
 			else if (_discriminant == 0.0f)
-				std::cout << "Discriminant is equal to zero, one solution exist" << std::endl;
+				std::cout << "Discriminant is equal to zero, one solution exist\n";
 			else
-				std::cout << "Discriminant is strictly positive, two solutions exist" << std::endl;
+				std::cout << "Discriminant is strictly positive, two solutions exist\n";
 		}
 
 		void _compute_solutions(void)
 		{
 			if (_polynomial_degree == 1)
+			{
+				std::cout << "First degree equation solution is: " << -_c << '/' << _b << '\n';
 				_solutions[0] = -_c / _b;
+			}
 			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
 			{
+				std::cout << "Applying the quadratic solution: (" << -_b << " +- sqrt(" << _discriminant << ")) / 2 * " << _a << '\n';
 				_solutions[0] = (-_b + squareRoot(_discriminant, 5)) / (2 * _a);
 				if (_discriminant > 0.0f)
 					_solutions[1] = (-_b - squareRoot(_discriminant, 5)) / (2 * _a);
 			}
 			else if (_polynomial_degree == 2 && _discriminant < 0.0f)
 			{
+				std::cout << "Applying the quadratic solution: (" << -_b << " +- sqrt(" << -_discriminant << ")i) / 2 * " << _a << '\n';
 				_solutions[0] = Complex(-_b / (2 * _a), squareRoot(-_discriminant, 5) / (2 * _a));
 				_solutions[1] = Complex(-_b / (2 * _a), -(squareRoot(-_discriminant, 5) / (2 * _a)));
 			}
