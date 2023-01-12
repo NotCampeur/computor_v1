@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/11 19:31:08 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:31:20 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ class EquationSolver
 					if (it->unknowns_degree == it2->unknowns_degree)
 					{
 						it2->coefficient -= it->coefficient;
-						if (it2->coefficient == 0.0f)
+						if (it2->coefficient >= -0.00001f && it2->coefficient <= 0.00001f)
 							_reduced_expression_terms.erase(it2);
 						found = true;
 						break;
