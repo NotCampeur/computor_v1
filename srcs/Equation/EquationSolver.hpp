@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/12 18:31:20 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/12 23:12:34 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include "EquationTerm.hpp"
 # include "FormulaParser.hpp"
 # include "Complex.hpp"
-
-float squareRoot(float number, int precision);
+# include "math_functions.hpp"
 
 class EquationSolver
 {
@@ -241,15 +240,15 @@ class EquationSolver
 			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
 			{
 				std::cout << "Applying the quadratic solution: (" << -_b << " +- sqrt(" << _discriminant << ")) / 2 * " << _a << '\n';
-				_solutions[0] = (-_b + squareRoot(_discriminant, 5)) / (2 * _a);
+				_solutions[0] = (-_b + square_root(_discriminant)) / (2 * _a);
 				if (_discriminant > 0.0f)
-					_solutions[1] = (-_b - squareRoot(_discriminant, 5)) / (2 * _a);
+					_solutions[1] = (-_b - square_root(_discriminant)) / (2 * _a);
 			}
 			else if (_polynomial_degree == 2 && _discriminant < 0.0f)
 			{
 				std::cout << "Applying the quadratic solution: (" << -_b << " +- sqrt(" << -_discriminant << ")i) / 2 * " << _a << '\n';
-				_solutions[0] = Complex(-_b / (2 * _a), squareRoot(-_discriminant, 5) / (2 * _a));
-				_solutions[1] = Complex(-_b / (2 * _a), -(squareRoot(-_discriminant, 5) / (2 * _a)));
+				_solutions[0] = Complex(-_b / (2 * _a), square_root(-_discriminant) / (2 * _a));
+				_solutions[1] = Complex(-_b / (2 * _a), -(square_root(-_discriminant) / (2 * _a)));
 			}
 		}
 
