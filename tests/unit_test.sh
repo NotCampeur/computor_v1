@@ -13,7 +13,7 @@ fi
 ./"$FILE" "52 - 20 + 10 = 42" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42^0 = 1" >> "$OUTPUT_FILE" 2>&1
-./"$FILE" "10^1.5 = 31.6227766" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "10^1.5 = 31.6227" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "5^" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "5^six" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "quatre egal 4" >> "$OUTPUT_FILE" 2>&1

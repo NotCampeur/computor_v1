@@ -6,7 +6,7 @@
 #    By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/12 20:05:44 by ldutriez          #+#    #+#              #
-#    Updated: 2023/01/12 22:54:13 by ldutriez         ###   ########.fr        #
+#    Updated: 2023/01/14 20:38:26 by ldutriez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ vpath %.cpp $(foreach dir, $(SRC_DIR), $(dir):)
 
 STRING_FUNCTIONS	= string_formatter.cpp
 
-MATH_FUNCTIONS	= root.cpp power.cpp
+MATH_FUNCTIONS	= root.cpp power.cpp fraction.cpp
 
 SRC 	=		main.cpp \
 				$(MATH_FUNCTIONS) \
