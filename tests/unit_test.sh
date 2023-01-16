@@ -11,6 +11,9 @@ fi
 ./"$FILE" "42 = 42" > "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42 = 52 - 20 + 10" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "52 - 20 + 10 = 42" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "52 + - 20 + 10 = 2 +-40" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "52 + - 20 + 10 = +-42" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "1 = 1 = 1" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "42^0 = 1" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "10^1.5 = 31.6227" >> "$OUTPUT_FILE" 2>&1

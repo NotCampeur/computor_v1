@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 16:09:44 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 22:56:39 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,13 +144,14 @@ class EquationSolver
 				it != terms.end();
 				++it)
 			{
-				std::cout << *it;
+				if (it->coefficient >= 0.0f || it == terms.begin())
+					std::cout << *it;
 				if (it + 1 != terms.end())
 				{
 					if ((it + 1)->coefficient >= 0.0f)
 						std::cout << "+ ";
-					else
-						std::cout << "- ";
+					else // Avoid writing - -coefficient
+						std::cout << "- " << -(*(it + 1));
 				}
 			}
 		}
