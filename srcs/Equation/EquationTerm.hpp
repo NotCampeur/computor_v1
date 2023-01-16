@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 22:45:53 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/03 01:56:31 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 22:53:48 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ struct EquationTerm
 		, unknowns_degree(obj.unknowns_degree)
 		{}
 		
+		EquationTerm operator-() const
+		{
+			return (EquationTerm(-coefficient, unknowns_degree));
+		}
+
 		EquationTerm &operator=(EquationTerm const &obj)
 		{
 			if (this != &obj)
