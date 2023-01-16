@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 16:02:19 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:08:43 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 # include <string>
 # include <vector>
 # include <exception>
-# include <cmath>
 # include "EquationTerm.hpp"
+# include "math_functions.hpp"
 
-float power(float number, float power);
 
 class FormulaParser
 {

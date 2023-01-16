@@ -6,14 +6,13 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/12 23:12:34 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:09:44 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMPUTOR_V1_EQUATION_SOLVER_HPP
 # define COMPUTOR_V1_EQUATION_SOLVER_HPP
 
-# include <cmath>
 # include <vector>
 # include <string>
 # include <exception>
