@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 16:08:43 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 19:25:26 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <exception>
 # include "EquationTerm.hpp"
 # include "math_functions.hpp"
-
 
 class FormulaParser
 {
@@ -140,12 +139,7 @@ class FormulaParser
 					_is_negative = false;
 				}
 				if (_is_constant == true)
-				{
-					// _current_coefficient = std::pow(_current_coefficient, temporary_exponant);
-					// std::cout << _current_coefficient << '^' << temporary_exponant;
 					_current_coefficient = power(_current_coefficient, temporary_exponant);
-					// std::cout << " = " << _current_coefficient << std::endl;
-				}
 				else if (_is_constant == false)
 				{
 					if (_is_multiplication == true)
