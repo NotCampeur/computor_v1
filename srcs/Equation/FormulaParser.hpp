@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 19:25:26 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:12:10 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,11 @@ class FormulaParser
 			_is_exponant = false;
 			_is_multiplication = false;
 			if (_spaceless_formula[_formula_index] == '=')
+			{
+				if (_current_expression_terms == &_second_expression_terms)
+					throw std::invalid_argument("Formula has too many expressions");
 				_current_expression_terms = &_second_expression_terms;
+			}
 		}
 
 		void _unknown_case(void)
