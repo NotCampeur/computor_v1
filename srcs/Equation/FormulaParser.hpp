@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/10 22:47:25 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:02:19 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class FormulaParser
 {
 	public:
 		FormulaParser(const std::string &formula)
-		: _first_expression_terms(), _second_expression_terms(), _i(0)
+		: _first_expression_terms(), _second_expression_terms(), _formula_index(0)
 		, _spaceless_formula(formula), _current_expression_terms(&_first_expression_terms)
 		, _current_coefficient(0.0f), _current_unknown_degree(0)
 		, _is_constant(true), _is_negative(false), _is_exponant(false), _is_multiplication(false)
@@ -47,7 +47,7 @@ class FormulaParser
 		FormulaParser(FormulaParser const &obj)
 		: _first_expression_terms(obj._first_expression_terms)
 		, _second_expression_terms(obj._second_expression_terms)
-		, _i(obj._i), _spaceless_formula(obj._spaceless_formula)
+		, _formula_index(obj._formula_index), _spaceless_formula(obj._spaceless_formula)
 		, _current_expression_terms(obj._current_expression_terms)
 		, _current_coefficient(obj._current_coefficient)
 		, _current_unknown_degree(obj._current_unknown_degree)
@@ -61,7 +61,7 @@ class FormulaParser
 			{
 				_first_expression_terms = obj._first_expression_terms;
 				_second_expression_terms = obj._second_expression_terms;
-				_i = obj._i;
+				_formula_index = obj._formula_index;
 				_spaceless_formula = obj._spaceless_formula;
 				_current_expression_terms = obj._current_expression_terms;
 				_current_coefficient = obj._current_coefficient;
@@ -83,9 +83,9 @@ class FormulaParser
 	private:
 		void parse_formula(void)
 		{
-			for (; _i != _spaceless_formula.size() + 1; ++_i)
+			for (; _formula_index != _spaceless_formula.size() + 1; ++_formula_index)
 			{
-				switch (_spaceless_formula[_i])
+				switch (_spaceless_formula[_formula_index])
 				{
 					case '0':
 					case '1':
@@ -117,7 +117,7 @@ class FormulaParser
 						_is_exponant = true;
 						break;
 					default:
-						throw std::invalid_argument(std::string("Unexpected character found in the formula: ") + _spaceless_formula[_i]);
+						throw std::invalid_argument(std::string("Unexpected character found in the formula: ") + _spaceless_formula[_formula_index]);
 				}
 			}
 			if (isdigit(_spaceless_formula.back()) == false && _spaceless_formula.back() != 'X')
@@ -134,7 +134,7 @@ class FormulaParser
 			
 			if (_is_exponant == true)
 			{
-				temporary_exponant = std::stof(_spaceless_formula.substr(_i), &convert_offset);
+				temporary_exponant = std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
 				if (_is_negative == true)
 				{
 					temporary_exponant *= -1;
@@ -163,12 +163,12 @@ class FormulaParser
 			else
 			{
 				if (_is_multiplication == true)
-					_current_coefficient *= std::stof(_spaceless_formula.substr(_i), &convert_offset);
+					_current_coefficient *= std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
 				else
 				{
 					if (_current_coefficient != 0.0f)
 						throw std::invalid_argument("Looks like the formula is not well formatted");
-					_current_coefficient = std::stof(_spaceless_formula.substr(_i), &convert_offset);
+					_current_coefficient = std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
 				}
 				if (_is_negative == true)
 				{
@@ -176,7 +176,7 @@ class FormulaParser
 					_is_negative = false;
 				}
 			}
-			_i += convert_offset - 1;			
+			_formula_index += convert_offset - 1;			
 		}
 
 		void _minus_case(void)
@@ -184,7 +184,7 @@ class FormulaParser
 			_is_negative = !_is_negative;
 			if (_is_multiplication == true || _is_exponant == true)
 				return;
-			if (_i != 0 && _spaceless_formula[_i - 1] != '=')
+			if (_formula_index != 0 && _spaceless_formula[_formula_index - 1] != '=')
 			{
 				_current_expression_terms->push_back(EquationTerm(_current_coefficient
 															, _current_unknown_degree));
@@ -206,19 +206,19 @@ class FormulaParser
 			_is_constant = true;
 			_is_exponant = false;
 			_is_multiplication = false;
-			if (_spaceless_formula[_i] == '=')
+			if (_spaceless_formula[_formula_index] == '=')
 				_current_expression_terms = &_second_expression_terms;
 		}
 
 		void _unknown_case(void)
 		{
-			if (_i == 0
-				|| _spaceless_formula[_i - 1] == '+'
-				|| _spaceless_formula[_i - 1] == '-'
-				|| _spaceless_formula[_i - 1] == '=')
+			if (_formula_index == 0
+				|| _spaceless_formula[_formula_index - 1] == '+'
+				|| _spaceless_formula[_formula_index - 1] == '-'
+				|| _spaceless_formula[_formula_index - 1] == '=')
 				_current_coefficient = _is_negative ? -1.0f : 1.0f;
 			_is_constant = false;
-			if (_spaceless_formula[_i + 1] != '^')
+			if (_spaceless_formula[_formula_index + 1] != '^')
 			{
 				if (_is_multiplication == true)
 					++_current_unknown_degree;
@@ -230,7 +230,7 @@ class FormulaParser
 
 		std::vector<EquationTerm>	_first_expression_terms;
 		std::vector<EquationTerm>	_second_expression_terms;
-		size_t						_i;
+		size_t						_formula_index;
 		std::string					_spaceless_formula;
 		std::vector<EquationTerm>	*_current_expression_terms;
 		float 						_current_coefficient;
