@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 23:50:13 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:07:01 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ class FormulaParser
 					case '-':
 						_minus_case();
 						break;
-					case '\0':
 					case '+':
 						if (_formula_index == 0)
 							throw std::invalid_argument("Formula should not start with a '+'");
+					case '\0':
 					case '=':
 						_plus_equal_null_case();
 						break;
