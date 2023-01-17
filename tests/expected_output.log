@@ -8,7 +8,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 42 = 4 2
 Error: Invalid formula, dangling digits
@@ -22,7 +21,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 52 - 20 + 10 = 42
  | Simplified equation: 42 = 42 
@@ -33,7 +31,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 52 + - 20 + 10 = 2 +-40
 Error: Signs should not be next to each other
@@ -53,7 +50,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 42
 
  => There is no solution.
-
 ===============================
 Equation: 42^0 = 1
  | Simplified equation: 1 = 1 
@@ -64,7 +60,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 10^1.5 = 31.6227
  | Simplified equation: 31.6227 = 31.6227 
@@ -75,7 +70,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 5^
 Error: Formula looks incomplete
@@ -95,7 +89,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 54e2 = 0
  | Simplified equation: 5400 = 0
@@ -106,7 +99,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 5400
 
  => There is no solution.
-
 ===============================
 Equation: 42.000000000000000000000000000000000000002 = 42
  | Simplified equation: 42 = 42 
@@ -117,7 +109,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 42 * X^0 = 42 * X^0
  | Simplified equation: 42 = 42 
@@ -128,7 +119,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 42 * X^1 = 42 * X^1
  | Simplified equation: 42X = 42X 
@@ -139,7 +129,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0
  | Simplified equation: 5 + 4X - 9.3X^2 = 1 
@@ -159,7 +148,10 @@ Applying the quadratic solution:
              2a
 
  => X = -0.475131
+      = 0 - 475131/1000000
+
  => X = 0.905239
+      = 0 + 905239/1000000
 
 ===============================
 Equation: 5 + 4X - 9.3X^2 = 1
@@ -180,7 +172,10 @@ Applying the quadratic solution:
              2a
 
  => X = -0.475131
+      = 0 - 475131/1000000
+
  => X = 0.905239
+      = 0 + 905239/1000000
 
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 5 * X^0 + 4 * X^1 - 9.3 * X^2
@@ -192,7 +187,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 5 * X^0 + 4 * X^1 = 4 * X^0
  | Simplified equation: 5 + 4X = 4 
@@ -209,6 +203,7 @@ First degree equation solution is:
     b
 
  => X = -0.25
+      = 0 - 1/4
 
 ===============================
 Equation: 8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0
@@ -221,7 +216,6 @@ Isolating coefficients: a = 0, b = -6, c = 5
 
 The polynomial degree is stricly greater than 2, I can't solve.
  => Cannot find solutions.
-
 ===============================
 Equation: 4X + 5 = 6X
  | Simplified equation: 4X + 5 = 6X 
@@ -238,6 +232,7 @@ First degree equation solution is:
     b
 
  => X = 2.5
+      = 2 + 1/2
 
 ===============================
 Equation: 4 * X^29 = 4 * X^29
@@ -249,7 +244,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: 4X*-5X
  | Simplified equation: -20X^2 = 0
@@ -269,6 +263,8 @@ Applying the quadratic solution:
              2a
 
  => X = 0
+      = 0 + 0/1
+
 ===============================
 Equation: 4X*-5X - 8X^2
  | Simplified equation: -28X^2 = 0
@@ -288,6 +284,8 @@ Applying the quadratic solution:
              2a
 
  => X = 0
+      = 0 + 0/1
+
 ===============================
 Equation: 2 * 15 * X = -7 * 4
  | Simplified equation: 30X = -28 
@@ -304,6 +302,7 @@ First degree equation solution is:
     b
 
  => X = -0.933333
+      = 0 - 933333/1000000
 
 ===============================
 Equation: 2^3 * X^2 + 4 * 2X * X + 6 * 4
@@ -324,7 +323,10 @@ Applying the quadratic solution for complex:
              2a              2a                 2a
 
  => X = 1.224745i
+      = 0 + 0/1 + 1.224745i
+
  => X = -1.224745i
+      = 0 + 0/1 - 1.224745i
 
 ===============================
 Equation: 4 * 3X8 = 0
@@ -339,7 +341,6 @@ Polynomial degree: 0
 Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
-
 ===============================
 Equation: X^4 * X^-2 + X + 14 = 17
  | Simplified equation: X^2 + X + 14 = 17 
@@ -359,7 +360,10 @@ Applying the quadratic solution:
              2a
 
  => X = 1.302774
+      = 1 + 151387/500000
+
  => X = -2.302774
+      = -2 - 151387/500000
 
 ===============================
 Equation: X^2 + X + 14 + X^-2 = 17
@@ -389,7 +393,10 @@ Applying the quadratic solution for complex:
              2a              2a                 2a
 
  => X = i
+      = 0 + 0/1 + i
+
  => X = -i
+      = 0 + 0/1 - i
 
 ===============================
 Equation: X^2 = -2
@@ -410,7 +417,10 @@ Applying the quadratic solution for complex:
              2a              2a                 2a
 
  => X = 1.414209i
+      = 0 + 0/1 + 1.414209i
+
  => X = -1.414209i
+      = 0 + 0/1 - 1.414209i
 
 ===============================
 Equation: X^2 = -3
@@ -431,7 +441,10 @@ Applying the quadratic solution for complex:
              2a              2a                 2a
 
  => X = 1.73205i
+      = 0 + 0/1 + 1.73205i
+
  => X = -1.73205i
+      = 0 + 0/1 - 1.73205i
 
 ===============================
 Equation: X^2 = -4
@@ -452,7 +465,10 @@ Applying the quadratic solution for complex:
              2a              2a                 2a
 
  => X = 2i
+      = 0 + 0/1 + 2i
+
  => X = -2i
+      = 0 + 0/1 - 2i
 
 ===============================
 Equation: X^2+ X = -100
@@ -473,5 +489,8 @@ Applying the quadratic solution for complex:
              2a              2a                 2a
 
  => X = -0.5 + 9.987491i
+      = 0 - 1/2 + 9.987491i
+
  => X = -0.5 - 9.987491i
+      = 0 - 1/2 - 9.987491i
 

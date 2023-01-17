@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/17 04:23:47 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 06:05:29 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,36 +53,62 @@ class EquationSolver
 		void print_solutions(void) const
 		{
 			if (_polynomial_degree > 2)
-				std::cout << " => Cannot find solutions.\n\n";
+				std::cout << " => Cannot find solutions.\n";
 			else if (_polynomial_degree == 2)
 			{
 				if (_reduced_expression_terms.size() == 1
 					&& _reduced_expression_terms[0].coefficient == 0.0f)
-					std::cout << " => All real numbers are solution.\n\n";
+					std::cout << " => All real numbers are solution.\n";
 				else
 				{
 					std::cout << " => X = " << _solutions[0] << '\n';
+					_print_fractional_solution(_solutions[0]);
 					if (_discriminant != 0.0f)
-						std::cout << " => X = " << _solutions[1] << "\n\n";
+					{
+						std::cout << " => X = " << _solutions[1] << "\n";
+						_print_fractional_solution(_solutions[1]);
+					}
 				}
 			}
 			else if (_polynomial_degree == 1)
 			{
 				if (_reduced_expression_terms.size() == 1
 					&& _reduced_expression_terms[0].coefficient == 0.0f)
-					std::cout << " => All real numbers are solution.\n\n";
+					std::cout << " => All real numbers are solution.\n";
 				else
-					std::cout << " => X = " << _solutions[0]  << "\n\n";
+				{
+					std::cout << " => X = " << _solutions[0]  << "\n";
+					_print_fractional_solution(_solutions[0]);
+				}
 			}
 			else if (_polynomial_degree == 0
 				&& _reduced_expression_terms.size() == 1
 				&& _reduced_expression_terms[0].coefficient == 0.0f)
-				std::cout << " => All real numbers are solution.\n\n";
+				std::cout << " => All real numbers are solution.\n";
 			else
-				std::cout << " => There is no solution.\n\n";
+				std::cout << " => There is no solution.\n";
 		}
 
 	private:
+
+		void _print_fractional_solution(const Complex & solution) const
+		{
+			int numerator;
+			int denominator;
+			char sign;
+			
+			sign = (solution.real < 0) ? '-' : '+';
+			to_fraction(solution.real, numerator, denominator);
+			std::cout << "      = " << (int)solution.real << ' ' << sign << ' '
+				<< numerator << '/' << denominator;
+			if (solution.imaginary != 0.0f)
+			{
+				sign = (solution.imaginary < 0) ? '-' : '+';
+				float imaginary = (solution.imaginary < 0) ? -solution.imaginary : solution.imaginary;
+				std::cout << " " << sign << " " << Complex(0.0f, imaginary);
+			}
+			std::cout << "\n\n";
+		}
 
 		// Simplify the expressions by removing terms with a coefficient of 0
 		// ,by computing the power of constant terms and by grouping alike terms
