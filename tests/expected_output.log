@@ -10,6 +10,9 @@ Isolating coefficients: a = 0, b = 0, c = 0
  => All real numbers are solution.
 
 ===============================
+Equation: 42 = 4 2
+Error: Invalid formula, dangling digits
+===============================
 Equation: 42 = 52 - 20 + 10
  | Simplified equation: 42 = 52 - 20 + 10 
  | Reduced equation: 0 = 0

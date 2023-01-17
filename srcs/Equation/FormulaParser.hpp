@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/17 02:07:01 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 05:03:45 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ class FormulaParser
 		, _current_coefficient(0.0f), _current_unknown_degree(0)
 		, _is_constant(true), _is_negative(false), _is_exponant(false), _is_multiplication(false)
 		{
-			for (auto it(_spaceless_formula.begin()); it != _spaceless_formula.end(); ++it)
+			for (size_t i(0); i < _spaceless_formula.size(); i++)
 			{
-				if (*it == ' ')
+				if (_spaceless_formula[i] == ' ')
 				{
-					_spaceless_formula.erase(it);
-					it--;
+					_spaceless_formula.erase(i, 1);
+					if (i > 0
+						&& isdigit(_spaceless_formula[i - 1])
+						&& isdigit(_spaceless_formula[i]))
+						throw std::invalid_argument("Invalid formula, dangling digits");
+					--i;
 				}
 			}
 			parse_formula();
