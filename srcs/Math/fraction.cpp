@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 20:35:08 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/15 04:26:40 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 05:43:26 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ void to_string_formatter(std::string & str);
 
 void to_fraction(float decimal, int &numerator, int &denominator)
 {
+	if (decimal == 0)
+	{
+		numerator = 0;
+		denominator = 1;
+		return ;
+	}
+	if (decimal < 0)
+		decimal = -decimal;
 	std::string decimal_str(std::to_string(decimal - (int)decimal).substr(2));
 
 	to_string_formatter(decimal_str);
