@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:58:54 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/10 22:25:30 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:25:42 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ struct Complex
 				form += "+ ";
 			else if (obj.imaginary < 0.0f)
 				form += "-";
-			if (obj.imaginary > 1.0f || obj.imaginary < -1.0f)
+			if (obj.imaginary != 1.0f && obj.imaginary != -1.0f)
 			{
 				if (obj.real != 0 && obj.imaginary < 0.0f)
 					form += ' ';
