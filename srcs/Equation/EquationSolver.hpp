@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/17 06:05:29 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:55:41 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,32 +258,40 @@ class EquationSolver
 
 		void _compute_solutions(void)
 		{
+			float discriminant_root;
+			float denominator = 2 * _a;
+			
 			if (_polynomial_degree == 1)
 			{
 				std::cout << "First degree equation solution is:\n\n"
 					<< "   -c\n"
-					<< "   ___\n"
-					<< "    b\n\n";
+					<< " = ___\n"
+					<< "    b\n\n"
+					<< " = " << -_c << " / " << _b << "\n\n";
 				_solutions[0] = -_c / _b;
 			}
 			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
 			{
+				discriminant_root = square_root(_discriminant);
 				std::cout << "Applying the quadratic solution:\n\n"
 					<< "   (-b +- sqrt(b^2 - 4ac))\n"
-					<< "   _______________________\n"
-					<< "             2a\n\n";
-				_solutions[0] = (-_b + square_root(_discriminant)) / (2 * _a);
+					<< " = _______________________\n"
+					<< "             2a\n\n"
+					<< " = (" << -_b << " +- " << discriminant_root << ") / " << denominator << "\n\n";
+				_solutions[0] = (-_b + discriminant_root) / denominator;
 				if (_discriminant > 0.0f)
-					_solutions[1] = (-_b - square_root(_discriminant)) / (2 * _a);
+					_solutions[1] = (-_b - discriminant_root) / denominator;
 			}
 			else if (_polynomial_degree == 2 && _discriminant < 0.0f)
 			{
+				discriminant_root = square_root(-_discriminant);
 				std::cout << "Applying the quadratic solution for complex:\n\n"
 					<< "   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))\n"
-					<< "   _______________________ = __ +- _____________________________\n"
-					<< "             2a              2a                 2a\n\n";
-				_solutions[0] = Complex(-_b / (2 * _a), square_root(-_discriminant) / (2 * _a));
-				_solutions[1] = Complex(-_b / (2 * _a), -(square_root(-_discriminant) / (2 * _a)));
+					<< " = _______________________ = __ +- _____________________________\n"
+					<< "             2a              2a                 2a\n\n"
+					<< " = " << -_b << " / " << denominator << " +- " << discriminant_root << "i / " << denominator << "\n\n";
+				_solutions[0] = Complex(-_b / denominator, discriminant_root / denominator);
+				_solutions[1] = Complex(-_b / denominator, -(discriminant_root / denominator));
 			}
 		}
 
