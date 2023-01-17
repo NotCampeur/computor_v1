@@ -1,24 +1,36 @@
 ===============================
 Equation: 42 = 42
-Simplified equation: 42 = 42 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 42 = 42 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 42 = 52 - 20 + 10
-Simplified equation: 42 = 52 - 20 + 10 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 42 = 52 - 20 + 10 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 52 - 20 + 10 = 42
-Simplified equation: 42 = 42 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 42 = 42 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 52 + - 20 + 10 = 2 +-40
 Error: Signs should not be next to each other
@@ -30,25 +42,37 @@ Equation: 1 = 1 = 1
 Error: Formula has too many expressions
 ===============================
 Equation: 42
-Simplified equation: 42 = 0
-Reduced equation: 42 = 0
-Isolating coefficients: a = 0, b = 0, c = 42
+ | Simplified equation: 42 = 0
+ | Reduced equation: 42 = 0
+
 Polynomial degree: 0
-There is no solution.
+
+Isolating coefficients: a = 0, b = 0, c = 42
+
+ => There is no solution.
+
 ===============================
 Equation: 42^0 = 1
-Simplified equation: 1 = 1 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 1 = 1 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 10^1.5 = 31.6227
-Simplified equation: 31.6227 = 31.6227 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 31.6227 = 31.6227 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 5^
 Error: Formula looks incomplete
@@ -60,219 +84,391 @@ Equation: quatre egal 4
 Error: Unexpected character found in the formula: q
 ===============================
 Equation: 6.480740698^2 = 42
-Simplified equation: 42 = 42 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 42 = 42 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 54e2 = 0
-Simplified equation: 5400 = 0
-Reduced equation: 5400 = 0
-Isolating coefficients: a = 0, b = 0, c = 5400
+ | Simplified equation: 5400 = 0
+ | Reduced equation: 5400 = 0
+
 Polynomial degree: 0
-There is no solution.
+
+Isolating coefficients: a = 0, b = 0, c = 5400
+
+ => There is no solution.
+
 ===============================
 Equation: 42.000000000000000000000000000000000000002 = 42
-Simplified equation: 42 = 42 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 42 = 42 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 42 * X^0 = 42 * X^0
-Simplified equation: 42 = 42 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 42 = 42 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 42 * X^1 = 42 * X^1
-Simplified equation: 42X = 42X 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 42X = 42X 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0
-Simplified equation: 5 + 4X - 9.3X^2 = 1 
-Reduced equation: 4 + 4X - 9.3X^2 = 0
-Isolating coefficients: a = -9.3, b = 4, c = 4
+ | Simplified equation: 5 + 4X - 9.3X^2 = 1 
+ | Reduced equation: 4 + 4X - 9.3X^2 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: 164.8
-Discriminant is strictly positive, two solutions exist
-Applying the quadratic solution: (-4 +- sqrt(164.8)) / 2 * -9.3
--0.475131
-0.905239
+
+Isolating coefficients: a = -9.3, b = 4, c = 4
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 164.8
+ | Discriminant is strictly positive, two solutions exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+   _______________________
+             2a
+
+ => X = -0.475131
+ => X = 0.905239
+
 ===============================
 Equation: 5 + 4X - 9.3X^2 = 1
-Simplified equation: 5 + 4X - 9.3X^2 = 1 
-Reduced equation: 4 + 4X - 9.3X^2 = 0
-Isolating coefficients: a = -9.3, b = 4, c = 4
+ | Simplified equation: 5 + 4X - 9.3X^2 = 1 
+ | Reduced equation: 4 + 4X - 9.3X^2 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: 164.8
-Discriminant is strictly positive, two solutions exist
-Applying the quadratic solution: (-4 +- sqrt(164.8)) / 2 * -9.3
--0.475131
-0.905239
+
+Isolating coefficients: a = -9.3, b = 4, c = 4
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 164.8
+ | Discriminant is strictly positive, two solutions exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+   _______________________
+             2a
+
+ => X = -0.475131
+ => X = 0.905239
+
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 5 * X^0 + 4 * X^1 - 9.3 * X^2
-Simplified equation: 5 + 4X - 9.3X^2 = 5 + 4X - 9.3X^2 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 5 + 4X - 9.3X^2 = 5 + 4X - 9.3X^2 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 5 * X^0 + 4 * X^1 = 4 * X^0
-Simplified equation: 5 + 4X = 4 
-Reduced equation: 1 + 4X = 0
-Isolating coefficients: a = 0, b = 4, c = 1
+ | Simplified equation: 5 + 4X = 4 
+ | Reduced equation: 1 + 4X = 0
+
 Polynomial degree: 1
-First degree equation solution is: -1/4
--0.25
+
+Isolating coefficients: a = 0, b = 4, c = 1
+
+First degree equation solution is:
+
+   -c
+   ___
+    b
+
+ => X = -0.25
+
 ===============================
 Equation: 8 * X^0 - 6 * X^1 + 0 * X^2 - 5.6 * X^3 = 3 * X^0
-Simplified equation: 8 - 6X - 5.6X^3 = 3 
-Reduced equation: 5 - 6X - 5.6X^3 = 0
-Isolating coefficients: a = 0, b = -6, c = 5
+ | Simplified equation: 8 - 6X - 5.6X^3 = 3 
+ | Reduced equation: 5 - 6X - 5.6X^3 = 0
+
 Polynomial degree: 3
+
+Isolating coefficients: a = 0, b = -6, c = 5
+
 The polynomial degree is stricly greater than 2, I can't solve.
-Cannot find solutions.
+ => Cannot find solutions.
+
 ===============================
 Equation: 4X + 5 = 6X
-Simplified equation: 4X + 5 = 6X 
-Reduced equation: -2X + 5 = 0
-Isolating coefficients: a = 0, b = -2, c = 5
+ | Simplified equation: 4X + 5 = 6X 
+ | Reduced equation: -2X + 5 = 0
+
 Polynomial degree: 1
-First degree equation solution is: -5/-2
-2.5
+
+Isolating coefficients: a = 0, b = -2, c = 5
+
+First degree equation solution is:
+
+   -c
+   ___
+    b
+
+ => X = 2.5
+
 ===============================
 Equation: 4 * X^29 = 4 * X^29
-Simplified equation: 4X^29 = 4X^29 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 4X^29 = 4X^29 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: 4X*-5X
-Simplified equation: -20X^2 = 0
-Reduced equation: -20X^2 = 0
-Isolating coefficients: a = -20, b = 0, c = 0
+ | Simplified equation: -20X^2 = 0
+ | Reduced equation: -20X^2 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: 0
-Discriminant is equal to zero, one solution exist
-Applying the quadratic solution: (-0 +- sqrt(0)) / 2 * -20
-0
+
+Isolating coefficients: a = -20, b = 0, c = 0
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 0
+ | Discriminant is equal to zero, one solution exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+   _______________________
+             2a
+
+ => X = 0
 ===============================
 Equation: 4X*-5X - 8X^2
-Simplified equation: -28X^2 = 0
-Reduced equation: -28X^2 = 0
-Isolating coefficients: a = -28, b = 0, c = 0
+ | Simplified equation: -28X^2 = 0
+ | Reduced equation: -28X^2 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: 0
-Discriminant is equal to zero, one solution exist
-Applying the quadratic solution: (-0 +- sqrt(0)) / 2 * -28
-0
+
+Isolating coefficients: a = -28, b = 0, c = 0
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 0
+ | Discriminant is equal to zero, one solution exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+   _______________________
+             2a
+
+ => X = 0
 ===============================
 Equation: 2 * 15 * X = -7 * 4
-Simplified equation: 30X = -28 
-Reduced equation: 30X + 28 = 0
-Isolating coefficients: a = 0, b = 30, c = 28
+ | Simplified equation: 30X = -28 
+ | Reduced equation: 30X + 28 = 0
+
 Polynomial degree: 1
-First degree equation solution is: -28/30
--0.933333
+
+Isolating coefficients: a = 0, b = 30, c = 28
+
+First degree equation solution is:
+
+   -c
+   ___
+    b
+
+ => X = -0.933333
+
 ===============================
 Equation: 2^3 * X^2 + 4 * 2X * X + 6 * 4
-Simplified equation: 16X^2 + 24 = 0
-Reduced equation: 16X^2 + 24 = 0
-Isolating coefficients: a = 16, b = 0, c = 24
+ | Simplified equation: 16X^2 + 24 = 0
+ | Reduced equation: 16X^2 + 24 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: -1536
-Discriminant is strictly negative, the two solutions are complex
-Applying the quadratic solution: (-0 +- sqrt(1536)i) / 2 * 16
-1.224745i
--1.224745i
+
+Isolating coefficients: a = 16, b = 0, c = 24
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = -1536
+ | Discriminant is strictly negative, the two solutions are complex
+
+Applying the quadratic solution for complex:
+
+   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))
+   _______________________ = __ +- _____________________________
+             2a              2a                 2a
+
+ => X = 1.224745i
+ => X = -1.224745i
+
 ===============================
 Equation: 4 * 3X8 = 0
 Error: Looks like the formula is not well formatted
 ===============================
 Equation: 5^-2 = 0.04
-Simplified equation: 0.04 = 0.04 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
+ | Simplified equation: 0.04 = 0.04 
+ | Reduced equation: 0 = 0
+
 Polynomial degree: 0
-All real numbers are solution.
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+
 ===============================
 Equation: X^4 * X^-2 + X + 14 = 17
-Simplified equation: X^2 + X + 14 = 17 
-Reduced equation: X^2 + X - 3 = 0
-Isolating coefficients: a = 1, b = 1, c = -3
+ | Simplified equation: X^2 + X + 14 = 17 
+ | Reduced equation: X^2 + X - 3 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: 13
-Discriminant is strictly positive, two solutions exist
-Applying the quadratic solution: (-1 +- sqrt(13)) / 2 * 1
-1.302774
--2.302774
+
+Isolating coefficients: a = 1, b = 1, c = -3
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 13
+ | Discriminant is strictly positive, two solutions exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+   _______________________
+             2a
+
+ => X = 1.302774
+ => X = -2.302774
+
 ===============================
 Equation: X^2 + X + 14 + X^-2 = 17
-Simplified equation: X^2 + X + 14 + X^-2 = 17 
-Reduced equation: X^2 + X - 3 + X^-2 = 0
+ | Simplified equation: X^2 + X + 14 + X^-2 = 17 
+ | Reduced equation: X^2 + X - 3 + X^-2 = 0
+
 Error: Reduced equation is not in form ax^2 + bx + c = 0
 ===============================
 Equation: 5 - -5 = ----10
 Error: Signs should not be next to each other
 ===============================
 Equation: X^2 = -1
-Simplified equation: X^2 = -1 
-Reduced equation: X^2 + 1 = 0
-Isolating coefficients: a = 1, b = 0, c = 1
+ | Simplified equation: X^2 = -1 
+ | Reduced equation: X^2 + 1 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: -4
-Discriminant is strictly negative, the two solutions are complex
-Applying the quadratic solution: (-0 +- sqrt(4)i) / 2 * 1
-i
--i
+
+Isolating coefficients: a = 1, b = 0, c = 1
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = -4
+ | Discriminant is strictly negative, the two solutions are complex
+
+Applying the quadratic solution for complex:
+
+   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))
+   _______________________ = __ +- _____________________________
+             2a              2a                 2a
+
+ => X = i
+ => X = -i
+
 ===============================
 Equation: X^2 = -2
-Simplified equation: X^2 = -2 
-Reduced equation: X^2 + 2 = 0
-Isolating coefficients: a = 1, b = 0, c = 2
+ | Simplified equation: X^2 = -2 
+ | Reduced equation: X^2 + 2 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: -8
-Discriminant is strictly negative, the two solutions are complex
-Applying the quadratic solution: (-0 +- sqrt(8)i) / 2 * 1
-1.414209i
--1.414209i
+
+Isolating coefficients: a = 1, b = 0, c = 2
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = -8
+ | Discriminant is strictly negative, the two solutions are complex
+
+Applying the quadratic solution for complex:
+
+   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))
+   _______________________ = __ +- _____________________________
+             2a              2a                 2a
+
+ => X = 1.414209i
+ => X = -1.414209i
+
 ===============================
 Equation: X^2 = -3
-Simplified equation: X^2 = -3 
-Reduced equation: X^2 + 3 = 0
-Isolating coefficients: a = 1, b = 0, c = 3
+ | Simplified equation: X^2 = -3 
+ | Reduced equation: X^2 + 3 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: -12
-Discriminant is strictly negative, the two solutions are complex
-Applying the quadratic solution: (-0 +- sqrt(12)i) / 2 * 1
-1.73205i
--1.73205i
+
+Isolating coefficients: a = 1, b = 0, c = 3
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = -12
+ | Discriminant is strictly negative, the two solutions are complex
+
+Applying the quadratic solution for complex:
+
+   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))
+   _______________________ = __ +- _____________________________
+             2a              2a                 2a
+
+ => X = 1.73205i
+ => X = -1.73205i
+
 ===============================
 Equation: X^2 = -4
-Simplified equation: X^2 = -4 
-Reduced equation: X^2 + 4 = 0
-Isolating coefficients: a = 1, b = 0, c = 4
+ | Simplified equation: X^2 = -4 
+ | Reduced equation: X^2 + 4 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: -16
-Discriminant is strictly negative, the two solutions are complex
-Applying the quadratic solution: (-0 +- sqrt(16)i) / 2 * 1
-2i
--2i
+
+Isolating coefficients: a = 1, b = 0, c = 4
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = -16
+ | Discriminant is strictly negative, the two solutions are complex
+
+Applying the quadratic solution for complex:
+
+   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))
+   _______________________ = __ +- _____________________________
+             2a              2a                 2a
+
+ => X = 2i
+ => X = -2i
+
 ===============================
 Equation: X^2+ X = -100
-Simplified equation: X^2 + X = -100 
-Reduced equation: X^2 + X + 100 = 0
-Isolating coefficients: a = 1, b = 1, c = 100
+ | Simplified equation: X^2 + X = -100 
+ | Reduced equation: X^2 + X + 100 = 0
+
 Polynomial degree: 2
-Calcul of discriminant for second degree equation: -399
-Discriminant is strictly negative, the two solutions are complex
-Applying the quadratic solution: (-1 +- sqrt(399)i) / 2 * 1
--0.5 + 9.987491i
--0.5 - 9.987491i
+
+Isolating coefficients: a = 1, b = 1, c = 100
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = -399
+ | Discriminant is strictly negative, the two solutions are complex
+
+Applying the quadratic solution for complex:
+
+   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))
+   _______________________ = __ +- _____________________________
+             2a              2a                 2a
+
+ => X = -0.5 + 9.987491i
+ => X = -0.5 - 9.987491i
+

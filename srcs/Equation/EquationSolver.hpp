@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 22:56:39 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:23:47 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ class EquationSolver
 			FormulaParser(formula).get_expression_terms(_first_expression_terms, _second_expression_terms);
 			_simplify_expressions();
 			_reduce_expression();
+			std::cout << "Polynomial degree: " << _polynomial_degree << "\n\n";
 			_store_main_coefficients();
-			std::cout << "Polynomial degree: " << _polynomial_degree << '\n';
 			if (_polynomial_degree > 2)
 				std::cout << "The polynomial degree is stricly greater than 2, I can't solve.\n";
 			else if (_polynomial_degree == 2)
@@ -53,33 +53,33 @@ class EquationSolver
 		void print_solutions(void) const
 		{
 			if (_polynomial_degree > 2)
-				std::cout << "Cannot find solutions.\n";
+				std::cout << " => Cannot find solutions.\n\n";
 			else if (_polynomial_degree == 2)
 			{
 				if (_reduced_expression_terms.size() == 1
 					&& _reduced_expression_terms[0].coefficient == 0.0f)
-					std::cout << "All real numbers are solution.\n";
+					std::cout << " => All real numbers are solution.\n\n";
 				else
 				{
-					std::cout << _solutions[0] << '\n';
+					std::cout << " => X = " << _solutions[0] << '\n';
 					if (_discriminant != 0.0f)
-						std::cout << _solutions[1] << '\n';
+						std::cout << " => X = " << _solutions[1] << "\n\n";
 				}
 			}
 			else if (_polynomial_degree == 1)
 			{
 				if (_reduced_expression_terms.size() == 1
 					&& _reduced_expression_terms[0].coefficient == 0.0f)
-					std::cout << "All real numbers are solution.\n";
+					std::cout << " => All real numbers are solution.\n\n";
 				else
-					std::cout << _solutions[0] << '\n';
+					std::cout << " => X = " << _solutions[0]  << "\n\n";
 			}
 			else if (_polynomial_degree == 0
 				&& _reduced_expression_terms.size() == 1
 				&& _reduced_expression_terms[0].coefficient == 0.0f)
-				std::cout << "All real numbers are solution.\n";
+				std::cout << " => All real numbers are solution.\n\n";
 			else
-				std::cout << "There is no solution.\n";
+				std::cout << " => There is no solution.\n\n";
 		}
 
 	private:
@@ -125,7 +125,7 @@ class EquationSolver
 					--it;
 				}
 			}
-			std::cout << "Simplified equation: ";
+			std::cout << " | Simplified equation: ";
 			_print_terms(_first_expression_terms);
 			std::cout << "= ";
 			if (_second_expression_terms.size() == 0)
@@ -192,9 +192,9 @@ class EquationSolver
 			}
 			if (_reduced_expression_terms.size() == 0)
 				_reduced_expression_terms.push_back(EquationTerm(0.0f, 0));
-			std::cout << "Reduced equation: ";
+			std::cout << " | Reduced equation: ";
 			_print_terms(_reduced_expression_terms);
-			std::cout << "= 0\n";
+			std::cout << "= 0\n\n";
 			if (bad_unknown_exponent == true)
 				throw std::invalid_argument("Reduced equation is not in form ax^2 + bx + c = 0");
 		}
@@ -212,7 +212,7 @@ class EquationSolver
 				else if (it->unknowns_degree == 0)
 					_c = it->coefficient;
 			}
-			std::cout << "Isolating coefficients: a = " << _a << ", b = " << _b << ", c = " << _c << '\n';
+			std::cout << "Isolating coefficients: a = " << _a << ", b = " << _b << ", c = " << _c << "\n\n";
 		}
 
 		void _compute_discriminant(void)
@@ -221,32 +221,41 @@ class EquationSolver
 				&& _reduced_expression_terms[0].coefficient == 0)
 				return;
 			_discriminant = _b * _b - 4 * _a * _c;
-			std::cout << "Calcul of discriminant for second degree equation: " << _discriminant << '\n';
+			std::cout << "Calcul of discriminant for second degree equation: [b^2 - 4ac] = " << _discriminant << '\n';
 			if (_discriminant < 0.0f)
-				std::cout << "Discriminant is strictly negative, the two solutions are complex\n";
+				std::cout << " | Discriminant is strictly negative, the two solutions are complex\n\n";
 			else if (_discriminant == 0.0f)
-				std::cout << "Discriminant is equal to zero, one solution exist\n";
+				std::cout << " | Discriminant is equal to zero, one solution exist\n\n";
 			else
-				std::cout << "Discriminant is strictly positive, two solutions exist\n";
+				std::cout << " | Discriminant is strictly positive, two solutions exist\n\n";
 		}
 
 		void _compute_solutions(void)
 		{
 			if (_polynomial_degree == 1)
 			{
-				std::cout << "First degree equation solution is: " << -_c << '/' << _b << '\n';
+				std::cout << "First degree equation solution is:\n\n"
+					<< "   -c\n"
+					<< "   ___\n"
+					<< "    b\n\n";
 				_solutions[0] = -_c / _b;
 			}
 			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
 			{
-				std::cout << "Applying the quadratic solution: (" << -_b << " +- sqrt(" << _discriminant << ")) / 2 * " << _a << '\n';
+				std::cout << "Applying the quadratic solution:\n\n"
+					<< "   (-b +- sqrt(b^2 - 4ac))\n"
+					<< "   _______________________\n"
+					<< "             2a\n\n";
 				_solutions[0] = (-_b + square_root(_discriminant)) / (2 * _a);
 				if (_discriminant > 0.0f)
 					_solutions[1] = (-_b - square_root(_discriminant)) / (2 * _a);
 			}
 			else if (_polynomial_degree == 2 && _discriminant < 0.0f)
 			{
-				std::cout << "Applying the quadratic solution: (" << -_b << " +- sqrt(" << -_discriminant << ")i) / 2 * " << _a << '\n';
+				std::cout << "Applying the quadratic solution for complex:\n\n"
+					<< "   (-b +- sqrt(b^2 - 4ac))   -b    sqrt(-1) * sqrt(-(b^2 - 4ac))\n"
+					<< "   _______________________ = __ +- _____________________________\n"
+					<< "             2a              2a                 2a\n\n";
 				_solutions[0] = Complex(-_b / (2 * _a), square_root(-_discriminant) / (2 * _a));
 				_solutions[1] = Complex(-_b / (2 * _a), -(square_root(-_discriminant) / (2 * _a)));
 			}
