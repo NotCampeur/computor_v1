@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 22:45:53 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 22:53:48 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 02:16:55 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ struct EquationTerm
 
 std::ostream &operator<<(std::ostream &os, const EquationTerm &obj)
 {
-	os << obj.coefficient;
+	if (obj.coefficient != 1.0f || obj.unknowns_degree == 0)
+		os << obj.coefficient;
 	if (obj.unknowns_degree != 0)
 	{
 		os << "X";

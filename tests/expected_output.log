@@ -204,8 +204,8 @@ Polynomial degree: 0
 All real numbers are solution.
 ===============================
 Equation: X^4 * X^-2 + X + 14 = 17
-Simplified equation: 1X^2 + 1X + 14 = 17 
-Reduced equation: 1X^2 + 1X - 3 = 0
+Simplified equation: X^2 + X + 14 = 17 
+Reduced equation: X^2 + X - 3 = 0
 Isolating coefficients: a = 1, b = 1, c = -3
 Polynomial degree: 2
 Calcul of discriminant for second degree equation: 13
@@ -215,16 +215,16 @@ Applying the quadratic solution: (-1 +- sqrt(13)) / 2 * 1
 -2.302774
 ===============================
 Equation: X^2 + X + 14 + X^-2 = 17
-Simplified equation: 1X^2 + 1X + 14 + 1X^-2 = 17 
-Reduced equation: 1X^2 + 1X - 3 + 1X^-2 = 0
+Simplified equation: X^2 + X + 14 + X^-2 = 17 
+Reduced equation: X^2 + X - 3 + X^-2 = 0
 Error: Reduced equation is not in form ax^2 + bx + c = 0
 ===============================
 Equation: 5 - -5 = ----10
 Error: Signs should not be next to each other
 ===============================
 Equation: X^2 = -1
-Simplified equation: 1X^2 = -1 
-Reduced equation: 1X^2 + 1 = 0
+Simplified equation: X^2 = -1 
+Reduced equation: X^2 + 1 = 0
 Isolating coefficients: a = 1, b = 0, c = 1
 Polynomial degree: 2
 Calcul of discriminant for second degree equation: -4
@@ -234,8 +234,8 @@ i
 -i
 ===============================
 Equation: X^2 = -2
-Simplified equation: 1X^2 = -2 
-Reduced equation: 1X^2 + 2 = 0
+Simplified equation: X^2 = -2 
+Reduced equation: X^2 + 2 = 0
 Isolating coefficients: a = 1, b = 0, c = 2
 Polynomial degree: 2
 Calcul of discriminant for second degree equation: -8
@@ -245,8 +245,8 @@ Applying the quadratic solution: (-0 +- sqrt(8)i) / 2 * 1
 -1.414209i
 ===============================
 Equation: X^2 = -3
-Simplified equation: 1X^2 = -3 
-Reduced equation: 1X^2 + 3 = 0
+Simplified equation: X^2 = -3 
+Reduced equation: X^2 + 3 = 0
 Isolating coefficients: a = 1, b = 0, c = 3
 Polynomial degree: 2
 Calcul of discriminant for second degree equation: -12
@@ -256,8 +256,8 @@ Applying the quadratic solution: (-0 +- sqrt(12)i) / 2 * 1
 -1.73205i
 ===============================
 Equation: X^2 = -4
-Simplified equation: 1X^2 = -4 
-Reduced equation: 1X^2 + 4 = 0
+Simplified equation: X^2 = -4 
+Reduced equation: X^2 + 4 = 0
 Isolating coefficients: a = 1, b = 0, c = 4
 Polynomial degree: 2
 Calcul of discriminant for second degree equation: -16
@@ -267,8 +267,8 @@ Applying the quadratic solution: (-0 +- sqrt(16)i) / 2 * 1
 -2i
 ===============================
 Equation: X^2+ X = -100
-Simplified equation: 1X^2 + 1X = -100 
-Reduced equation: 1X^2 + 1X + 100 = 0
+Simplified equation: X^2 + X = -100 
+Reduced equation: X^2 + X + 100 = 0
 Isolating coefficients: a = 1, b = 1, c = 100
 Polynomial degree: 2
 Calcul of discriminant for second degree equation: -399
