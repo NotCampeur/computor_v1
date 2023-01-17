@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/16 23:12:10 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:50:13 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ class FormulaParser
 						break;
 					case '\0':
 					case '+':
+						if (_formula_index == 0)
+							throw std::invalid_argument("Formula should not start with a '+'");
 					case '=':
 						_plus_equal_null_case();
 						break;
@@ -174,6 +176,9 @@ class FormulaParser
 
 		void _minus_case(void)
 		{
+			if (_spaceless_formula[_formula_index + 1] == '-'
+				|| _spaceless_formula[_formula_index + 1] == '+')
+				throw std::invalid_argument("Signs should not be next to each other");
 			_is_negative = !_is_negative;
 			if (_is_multiplication == true || _is_exponant == true)
 				return;
@@ -191,6 +196,10 @@ class FormulaParser
 
 		void _plus_equal_null_case(void)
 		{
+			if (_spaceless_formula[_formula_index] == '+' &&
+				(_spaceless_formula[_formula_index + 1] == '-'
+				|| _spaceless_formula[_formula_index + 1] == '+'))
+				throw std::invalid_argument("Signs should not be next to each other");
 			_current_expression_terms->push_back(EquationTerm(_current_coefficient
 															, _current_unknown_degree));
 			_current_coefficient = 0.0f;

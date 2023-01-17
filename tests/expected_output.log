@@ -21,18 +21,10 @@ Polynomial degree: 0
 All real numbers are solution.
 ===============================
 Equation: 52 + - 20 + 10 = 2 +-40
-Simplified equation: 42 = 2 - 40 
-Reduced equation: 80 = 0
-Isolating coefficients: a = 0, b = 0, c = 80
-Polynomial degree: 0
-There is no solution.
+Error: Signs should not be next to each other
 ===============================
 Equation: 52 + - 20 + 10 = +-42
-Simplified equation: 42 = -42 
-Reduced equation: 84 = 0
-Isolating coefficients: a = 0, b = 0, c = 84
-Polynomial degree: 0
-There is no solution.
+Error: Signs should not be next to each other
 ===============================
 Equation: 1 = 1 = 1
 Error: Formula has too many expressions
@@ -228,11 +220,7 @@ Reduced equation: 1X^2 + 1X - 3 + 1X^-2 = 0
 Error: Reduced equation is not in form ax^2 + bx + c = 0
 ===============================
 Equation: 5 - -5 = ----10
-Simplified equation: 10 = 10 
-Reduced equation: 0 = 0
-Isolating coefficients: a = 0, b = 0, c = 0
-Polynomial degree: 0
-All real numbers are solution.
+Error: Signs should not be next to each other
 ===============================
 Equation: X^2 = -1
 Simplified equation: 1X^2 = -1 
