@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:58:54 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/17 02:25:42 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/17 04:45:28 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,14 @@ struct Complex
 				form += "+ ";
 			else if (obj.imaginary < 0.0f)
 				form += "-";
-			if (obj.imaginary != 1.0f && obj.imaginary != -1.0f)
-			{
-				if (obj.real != 0 && obj.imaginary < 0.0f)
-					form += ' ';
-				form += std::to_string(std::abs(obj.imaginary));
-				to_string_formatter(form);
-			}
+			if (obj.real != 0 && obj.imaginary < 0.0f)
+				form += ' ';
+			form += std::to_string(std::abs(obj.imaginary));
+			to_string_formatter(form);
+			if (form.back() == '1'
+				&& (form[form.size() - 2] < '0' || form[form.size() - 2] > '9')
+				&& form[form.size() - 2] != '.')
+				form.pop_back();
 			form += "i";
 		}
 		if (form.size() == 0)
