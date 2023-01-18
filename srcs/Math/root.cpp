@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:46:45 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/12 23:11:07 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:38:18 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ float square_root(float number, int precision)
     // of square root upto given precision
     float increment = 0.1;
     for (int i = 0; i < precision; ++i) {
-        while (answer * answer <= number) {
+        for (int i(0); i < 10 && answer * answer <= number; ++i) {
             answer += increment;
         }
  
