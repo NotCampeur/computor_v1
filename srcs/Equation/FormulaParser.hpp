@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/17 05:03:45 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:11:51 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,20 +132,30 @@ class FormulaParser
 
 		void _digit_case(void)
 		{
-			float temporary_exponant(0.0f);
-			int check_unknown_degree(0);
+			mpf_class temporary_exponant(0.0f);
+			mpz_class check_unknown_degree(0);
 			size_t convert_offset(0);
 			
 			if (_is_exponant == true)
 			{
 				temporary_exponant = std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
+				// std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
+				// std::cout << "substr: " << _spaceless_formula.substr(_formula_index, convert_offset) << '\n';
+				// int set_str_return = temporary_exponant.set_str(_spaceless_formula.substr(_formula_index, 3), 10);
+				// std::cout << "set_str_return: " << set_str_return << std::endl;
+				// std::cout << "temporary_exponant: " << temporary_exponant << std::endl;
 				if (_is_negative == true)
 				{
 					temporary_exponant *= -1;
 					_is_negative = false;
 				}
 				if (_is_constant == true)
-					_current_coefficient = power(_current_coefficient, temporary_exponant);
+				{
+					// if ((int)(temporary_exponant.get_d()) != temporary_exponant.get_d())
+					// 	_current_coefficient = power(_current_coefficient, temporary_exponant);
+					// else
+						_current_coefficient = power(_current_coefficient, temporary_exponant);
+				}
 				else if (_is_constant == false)
 				{
 					if (_is_multiplication == true)
@@ -243,8 +253,8 @@ class FormulaParser
 		size_t						_formula_index;
 		std::string					_spaceless_formula;
 		std::vector<EquationTerm>	*_current_expression_terms;
-		float 						_current_coefficient;
-		int 						_current_unknown_degree;
+		mpf_class					_current_coefficient;
+		mpz_class					_current_unknown_degree;
 		bool 						_is_constant;
 		bool 						_is_negative;
 		bool 						_is_exponant;

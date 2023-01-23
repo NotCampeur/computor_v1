@@ -6,63 +6,23 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 01:46:45 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/18 19:38:18 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:48:35 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math_functions.hpp"
 
-float square_root(float number, int precision)
+mpf_class square_root(mpf_class number, mpz_class precision)
 {
-    int start = 0, end = number;
-    int middle;
- 
-    float answer;
- 
-    // for computing integral part
-    // of square root of number
-    while (start <= end) {
-        middle = (start + end) / 2;
-        if (middle * middle == number) {
-            answer = middle;
-            break;
-        }
- 
-        // incrementing start if integral
-        // part lies on right side of the middle
-        if (middle * middle < number) {
-            start = middle + 1;
-            answer = middle;
-        }
- 
-        // decrementing end if integral part
-        // lies on the left side of the middle
-        else {
-            end = middle - 1;
-        }
-    }
- 
-    // For computing the fractional part
-    // of square root upto given precision
-    float increment = 0.1;
-    for (int i = 0; i < precision; ++i) {
-        for (int i(0); i < 10 && answer * answer <= number; ++i) {
-            answer += increment;
-        }
- 
-        // loop terminates when answer * answer > number
-        answer -= increment;
-        increment /= 10;
-    }
-    return answer;
+	return nth_root(number, 2, precision);
 }
 
-float nth_root(float number, int n, int precision)
+mpf_class nth_root(mpf_class number, mpz_class n, mpz_class precision)
 {
-    int start = 0, end = number;
-    int middle;
+    mpz_class start = 0, end = number.get_si();
+    mpz_class middle;
  
-    float answer;
+    mpf_class answer;
  
 	if (n == 0)
 		return 0;
@@ -74,7 +34,6 @@ float nth_root(float number, int n, int precision)
     // for computing integral part
     // of square root of number
     while (start <= end) {
-
         middle = (start + end) / 2;
         if (power(middle, n) == number) {
             answer = middle;
@@ -97,11 +56,10 @@ float nth_root(float number, int n, int precision)
  
     // For computing the fractional part
     // of square root upto given precision
-    float increment = 0.1;
+    mpf_class increment = 0.1;
     for (int i = 0; i < precision; ++i) {
-        while (power(answer, n) <= number) {
+        for (int y(0); y < 10 && power(answer, n) <= number; ++y)
             answer += increment;
-        }
  
         // loop terminates when power(answer, n) > number
         answer -= increment;

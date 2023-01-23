@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 22:45:53 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/17 02:16:55 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:05:21 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 # define COMPUTER_V1_EQUATION_TERM_HPP
 
 # include <iostream>
+# include <gmpxx.h>
 
 struct EquationTerm
 {
-		float	coefficient;
-		int		unknowns_degree;
+		mpf_class	coefficient;
+		mpf_class	unknowns_degree;
 
 		EquationTerm()
 		: coefficient(0.0f), unknowns_degree(0)
 		{}
 		
-		EquationTerm(float p_coefficient, int p_unknowns_degree)
+		EquationTerm(mpf_class p_coefficient, mpf_class p_unknowns_degree)
 		: coefficient(p_coefficient)
 		, unknowns_degree(p_unknowns_degree)
 		{}

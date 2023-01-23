@@ -270,7 +270,7 @@ Applying the quadratic solution:
  = _______________________
              2a
 
- = (-0 +- 0) / -40
+ = (0 +- 0) / -40
 
  => X = 0
       = 0 + 0/1
@@ -293,7 +293,7 @@ Applying the quadratic solution:
  = _______________________
              2a
 
- = (-0 +- 0) / -56
+ = (0 +- 0) / -56
 
  => X = 0
       = 0 + 0/1
@@ -336,7 +336,7 @@ Applying the quadratic solution for complex:
  = _______________________ = __ +- _____________________________
              2a              2a                 2a
 
- = -0 / 32 +- 39.1918i / 32
+ = 0 / 32 +- 39.1918i / 32
 
  => X = 1.224745i
       = 0 + 0/1 + 1.224745i
@@ -377,11 +377,11 @@ Applying the quadratic solution:
 
  = (-1 +- 3.60555) / 2
 
- => X = 1.302774
-      = 1 + 151387/500000
+ => X = 1.302775
+      = 1 + 12111/40000
 
- => X = -2.302774
-      = -2 - 151387/500000
+ => X = -2.302775
+      = -2 - 12111/40000
 
 ===============================
 Equation: X^2 + X + 14 + X^-2 = 17
@@ -410,7 +410,7 @@ Applying the quadratic solution for complex:
  = _______________________ = __ +- _____________________________
              2a              2a                 2a
 
- = -0 / 2 +- 2i / 2
+ = 0 / 2 +- 2i / 2
 
  => X = i
       = 0 + 0/1 + i
@@ -436,13 +436,13 @@ Applying the quadratic solution for complex:
  = _______________________ = __ +- _____________________________
              2a              2a                 2a
 
- = -0 / 2 +- 2.82842i / 2
+ = 0 / 2 +- 2.82842i / 2
 
- => X = 1.414209i
-      = 0 + 0/1 + 1.414209i
+ => X = 1.41421i
+      = 0 + 0/1 + 1.41421i
 
- => X = -1.414209i
-      = 0 + 0/1 - 1.414209i
+ => X = -1.41421i
+      = 0 + 0/1 - 1.41421i
 
 ===============================
 Equation: X^2 = -3
@@ -462,7 +462,7 @@ Applying the quadratic solution for complex:
  = _______________________ = __ +- _____________________________
              2a              2a                 2a
 
- = -0 / 2 +- 3.4641i / 2
+ = 0 / 2 +- 3.4641i / 2
 
  => X = 1.73205i
       = 0 + 0/1 + 1.73205i
@@ -488,7 +488,7 @@ Applying the quadratic solution for complex:
  = _______________________ = __ +- _____________________________
              2a              2a                 2a
 
- = -0 / 2 +- 4i / 2
+ = 0 / 2 +- 4i / 2
 
  => X = 2i
       = 0 + 0/1 + 2i
@@ -516,9 +516,67 @@ Applying the quadratic solution for complex:
 
  = -1 / 2 +- 19.975i / 2
 
- => X = -0.5 + 9.987491i
-      = 0 - 1/2 + 9.987491i
+ => X = -0.5 + 9.98749i
+      = 0 - 1/2 + 9.98749i
 
- => X = -0.5 - 9.987491i
-      = 0 - 1/2 - 9.987491i
+ => X = -0.5 - 9.98749i
+      = 0 - 1/2 - 9.98749i
+
+===============================
+Equation: -X^2 = -1
+ | Simplified equation: -1X^-2 = -1 
+ | Reduced equation: -1X^-2 + 1 = 0
+
+Error: Reduced equation is not in form ax^2 + bx + c = 0
+===============================
+Equation: X^2 + 257X + 1 = 0
+ | Simplified equation: X^2 + 257X + 1 = 0
+ | Reduced equation: X^2 + 257X + 1 = 0
+
+Polynomial degree: 2
+
+Isolating coefficients: a = 1, b = 257, c = 1
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 66045
+ | Discriminant is strictly positive, two solutions exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+ = _______________________
+             2a
+
+ = (-257 +- 256.992) / 2
+
+ => X = -0.003895
+      = 0 - 779/2000
+
+ => X = -256.996105
+      = -256 - 199221/200000
+
+===============================
+Equation: 9000X^2-257X-2456894213=0
+ | Simplified equation: 9000X^2 - 257X - 2.45689e+09 = 0
+ | Reduced equation: 9000X^2 - 257X - 2.45689e+09 = 0
+
+Polynomial degree: 2
+
+Isolating coefficients: a = 9000, b = -257, c = -2.45689e+09
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 8.84482e+13
+ | Discriminant is strictly positive, two solutions exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+ = _______________________
+             2a
+
+ = (257 +- 9.40469e+06) / 18000
+
+ => X = 522.497048
+      = 522 + 62131/125000
+
+ => X = -522.468493
+      = -522 - 468493/1000000
 

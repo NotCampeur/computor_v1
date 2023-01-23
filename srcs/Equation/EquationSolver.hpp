@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/17 17:55:41 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:35:29 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "FormulaParser.hpp"
 # include "Complex.hpp"
 # include "math_functions.hpp"
+# include <gmpxx.h>
 
 class EquationSolver
 {
@@ -28,7 +29,7 @@ class EquationSolver
 		: _first_expression_terms(), _second_expression_terms()
 		, _reduced_expression_terms(), _polynomial_degree(0)
 		, _a(0.0f), _b(0.0f), _c(0.0f), _discriminant(0.0f)
-		, _solutions{0.0f, 0.0f}
+		, _solutions{Complex(0.0f), Complex(0.0f)}
 		{
 			FormulaParser(formula).get_expression_terms(_first_expression_terms, _second_expression_terms);
 			_simplify_expressions();
@@ -45,7 +46,7 @@ class EquationSolver
 		
 		~EquationSolver() {}
 	
-		int polynomial_degree() const
+		mpf_class polynomial_degree() const
 		{
 			return _polynomial_degree;
 		}
@@ -93,18 +94,18 @@ class EquationSolver
 
 		void _print_fractional_solution(const Complex & solution) const
 		{
-			int numerator;
-			int denominator;
+			mpz_class numerator;
+			mpz_class denominator;
 			char sign;
 			
 			sign = (solution.real < 0) ? '-' : '+';
 			to_fraction(solution.real, numerator, denominator);
-			std::cout << "      = " << (int)solution.real << ' ' << sign << ' '
+			std::cout << "      = " << solution.real.get_si() << ' ' << sign << ' '
 				<< numerator << '/' << denominator;
 			if (solution.imaginary != 0.0f)
 			{
 				sign = (solution.imaginary < 0) ? '-' : '+';
-				float imaginary = (solution.imaginary < 0) ? -solution.imaginary : solution.imaginary;
+				mpf_class imaginary = (solution.imaginary < 0) ? -solution.imaginary : solution.imaginary;
 				std::cout << " " << sign << " " << Complex(0.0f, imaginary);
 			}
 			std::cout << "\n\n";
@@ -258,8 +259,8 @@ class EquationSolver
 
 		void _compute_solutions(void)
 		{
-			float discriminant_root;
-			float denominator = 2 * _a;
+			mpf_class discriminant_root;
+			mpf_class denominator = 2 * _a;
 			
 			if (_polynomial_degree == 1)
 			{
@@ -268,7 +269,7 @@ class EquationSolver
 					<< " = ___\n"
 					<< "    b\n\n"
 					<< " = " << -_c << " / " << _b << "\n\n";
-				_solutions[0] = -_c / _b;
+				_solutions[0] = Complex(-_c / _b);
 			}
 			else if (_polynomial_degree == 2 && _discriminant >= 0.0f)
 			{
@@ -278,9 +279,9 @@ class EquationSolver
 					<< " = _______________________\n"
 					<< "             2a\n\n"
 					<< " = (" << -_b << " +- " << discriminant_root << ") / " << denominator << "\n\n";
-				_solutions[0] = (-_b + discriminant_root) / denominator;
+				_solutions[0] = Complex((-_b + discriminant_root) / denominator);
 				if (_discriminant > 0.0f)
-					_solutions[1] = (-_b - discriminant_root) / denominator;
+					_solutions[1] = Complex((-_b - discriminant_root) / denominator);
 			}
 			else if (_polynomial_degree == 2 && _discriminant < 0.0f)
 			{
@@ -301,11 +302,11 @@ class EquationSolver
 		std::vector<EquationTerm>	_first_expression_terms;
 		std::vector<EquationTerm>	_second_expression_terms;
 		std::vector<EquationTerm>	_reduced_expression_terms;
-		int							_polynomial_degree;
-		float						_a;
-		float						_b;
-		float						_c;
-		float						_discriminant;
+		mpz_class					_polynomial_degree;
+		mpf_class					_a;
+		mpf_class					_b;
+		mpf_class					_c;
+		mpf_class					_discriminant;
 		Complex						_solutions[2];
 };
 
