@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/23 18:35:29 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:47:44 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,26 @@ class EquationSolver
 			mpz_class denominator;
 			char sign;
 			
+			std::cout << "      = ";
 			sign = (solution.real < 0) ? '-' : '+';
 			to_fraction(solution.real, numerator, denominator);
-			std::cout << "      = " << solution.real.get_si() << ' ' << sign << ' '
-				<< numerator << '/' << denominator;
+			if (numerator != 0)
+			{
+				if (solution.real.get_si() != 0)
+				std::cout << solution.real.get_si() << ' ' << sign << ' '
+					<< numerator << '/' << denominator;
+				else
+					std::cout << sign << ' ' << numerator << '/' << denominator;
+			}
+			sign = (solution.imaginary < 0) ? '-' : '+';
+			to_fraction(solution.imaginary, numerator, denominator);
 			if (solution.imaginary != 0.0f)
 			{
-				sign = (solution.imaginary < 0) ? '-' : '+';
-				mpf_class imaginary = (solution.imaginary < 0) ? -solution.imaginary : solution.imaginary;
-				std::cout << " " << sign << " " << Complex(0.0f, imaginary);
+				if (solution.real.get_si() != 0)
+				std::cout << " " << sign << solution.real.get_si() << "i " << sign << ' '
+					<< numerator << '/' << denominator << "i";
+				else
+					std::cout << " " << sign << ' ' << numerator << '/' << denominator << "i";
 			}
 			std::cout << "\n\n";
 		}
