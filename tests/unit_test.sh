@@ -50,5 +50,6 @@ fi
 ./"$FILE" "-X^2 = -1" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "X^2 + 257X + 1 = 0" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "9000X^2-257X-2456894213=0" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "X^2 + 2^2.1X + 1 = 0" >> "$OUTPUT_FILE" 2>&1
 diff --expand-tabs --ignore-tab-expansion --side-by-side --left-column --width=160 tests/output.log tests/expected_output.log > tests/diff.log
 echo "tests/diff.log created, please check it for differences between expected and actual output"
