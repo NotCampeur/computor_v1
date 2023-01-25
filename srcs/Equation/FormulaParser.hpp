@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/23 13:11:51 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:36:33 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,6 @@ class FormulaParser
 			if (_is_exponant == true)
 			{
 				temporary_exponant = std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
-				// std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
-				// std::cout << "substr: " << _spaceless_formula.substr(_formula_index, convert_offset) << '\n';
-				// int set_str_return = temporary_exponant.set_str(_spaceless_formula.substr(_formula_index, 3), 10);
-				// std::cout << "set_str_return: " << set_str_return << std::endl;
-				// std::cout << "temporary_exponant: " << temporary_exponant << std::endl;
 				if (_is_negative == true)
 				{
 					temporary_exponant *= -1;
@@ -151,10 +146,7 @@ class FormulaParser
 				}
 				if (_is_constant == true)
 				{
-					// if ((int)(temporary_exponant.get_d()) != temporary_exponant.get_d())
-					// 	_current_coefficient = power(_current_coefficient, temporary_exponant);
-					// else
-						_current_coefficient = power(_current_coefficient, temporary_exponant);
+					_current_coefficient = power(_current_coefficient, temporary_exponant);
 				}
 				else if (_is_constant == false)
 				{
