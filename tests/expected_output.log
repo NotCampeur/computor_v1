@@ -524,10 +524,30 @@ Applying the quadratic solution for complex:
 
 ===============================
 Equation: -X^2 = -1
- | Simplified equation: -1X^-2 = -1 
- | Reduced equation: -1X^-2 + 1 = 0
+ | Simplified equation: -1X^2 = -1 
+ | Reduced equation: -1X^2 + 1 = 0
 
-Error: Reduced equation is not in form ax^2 + bx + c = 0
+Polynomial degree: 2
+
+Isolating coefficients: a = -1, b = 0, c = 1
+
+Calcul of discriminant for second degree equation: [b^2 - 4ac] = 4
+ | Discriminant is strictly positive, two solutions exist
+
+Applying the quadratic solution:
+
+   (-b +- sqrt(b^2 - 4ac))
+ = _______________________
+             2a
+
+ = (0 +- 2) / -2
+
+ => X = -1
+      = - 31249999999999999997/31250000000000000000
+
+ => X = 1
+      = + 31249999999999999997/31250000000000000000
+
 ===============================
 Equation: X^2 + 257X + 1 = 0
  | Simplified equation: X^2 + 257X + 1 = 0

@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/25 14:36:33 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:19:26 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,13 @@ class FormulaParser
 				|| _spaceless_formula[_formula_index - 1] == '+'
 				|| _spaceless_formula[_formula_index - 1] == '-'
 				|| _spaceless_formula[_formula_index - 1] == '=')
-				_current_coefficient = _is_negative ? -1.0f : 1.0f;
+			{
+				if (_current_coefficient != 0.0f)
+					_current_coefficient = _is_negative ? -_current_coefficient : _current_coefficient;
+				else
+					_current_coefficient = _is_negative ? -1.0f : 1.0f;
+				_is_negative = false;
+			}
 			_is_constant = false;
 			if (_spaceless_formula[_formula_index + 1] != '^')
 			{
