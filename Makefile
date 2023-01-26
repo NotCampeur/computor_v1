@@ -6,7 +6,7 @@
 #    By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/12 20:05:44 by ldutriez          #+#    #+#              #
-#    Updated: 2023/01/23 08:43:35 by ldutriez         ###   ########.fr        #
+#    Updated: 2023/01/26 19:40:04 by ldutriez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ SRC 	=		main.cpp \
 OBJ		=		$(addprefix $(OBJ_DIR)/, $(SRC:%.cpp=%.o))
 
 #Compilation flag
-CFLAGS	=		-Wall -Wextra -Werror
+CFLAGS	=		-Wall -Wextra -Werror -std=c++17
 
 #External library
 LDFLAGS = -lgmpxx -lgmp

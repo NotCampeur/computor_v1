@@ -22,6 +22,19 @@ Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
 ===============================
+Equation: 4+*X
+Error: Signs should not be next to each other
+===============================
+Equation: 4*5/2 = 10
+ | Simplified equation: 10 = 10 
+ | Reduced equation: 0 = 0
+
+Polynomial degree: 0
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+===============================
 Equation: 52 - 20 + 10 = 42
  | Simplified equation: 42 = 42 
  | Reduced equation: 0 = 0
