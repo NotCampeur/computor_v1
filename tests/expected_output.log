@@ -56,7 +56,7 @@ First degree equation solution is:
 
 ===============================
 Equation: 2/X = 2
-Error: X cannot be a divisor
+Error: Division by unknown is not allowed
 ===============================
 Equation: 52 - 20 + 10 = 42
  | Simplified equation: 42 = 42 

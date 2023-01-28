@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/28 04:51:17 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 05:22:06 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,8 @@ class FormulaParser
 
 		void _unknown_case(void)
 		{
+			if (_is_division == true)
+				throw std::invalid_argument("Division by unknown is not allowed");
 			if (_current_coefficient.has_value() == false)
 			{
 				_current_coefficient.emplace(_is_negative ? -1.0f : 1.0f);
