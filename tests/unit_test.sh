@@ -15,6 +15,8 @@ fi
 ./"$FILE" "4*5/2 = 10" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "X/2 = 1" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "2/X = 2" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "^4" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "X^2*^2" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "2^2^2^2 = 256" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "4X^2^2^2 = 256X^8" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "2/0 = singularity" >> "$OUTPUT_FILE" 2>&1

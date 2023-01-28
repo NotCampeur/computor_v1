@@ -58,6 +58,12 @@ First degree equation solution is:
 Equation: 2/X = 2
 Error: Division by unknown is not allowed
 ===============================
+Equation: ^4
+Error: Invalid formula, dangling exponent
+===============================
+Equation: X^2*^2
+Error: Invalid formula, dangling exponent
+===============================
 Equation: 2^2^2^2 = 256
  | Simplified equation: 256 = 256 
  | Reduced equation: 0 = 0
