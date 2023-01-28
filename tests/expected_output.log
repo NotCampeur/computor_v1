@@ -35,6 +35,29 @@ Isolating coefficients: a = 0, b = 0, c = 0
 
  => All real numbers are solution.
 ===============================
+Equation: X/2 = 1
+ | Simplified equation: 0.5X = 1 
+ | Reduced equation: 0.5X - 1 = 0
+
+Polynomial degree: 1
+
+Isolating coefficients: a = 0, b = 0.5, c = -1
+
+First degree equation solution is:
+
+   -c
+ = ___
+    b
+
+ = 1 / 0.5
+
+ => X = 2
+      = 
+
+===============================
+Equation: 2/X = 2
+Error: X cannot be a divisor
+===============================
 Equation: 52 - 20 + 10 = 42
  | Simplified equation: 42 = 42 
  | Reduced equation: 0 = 0

@@ -13,6 +13,8 @@ fi
 ./"$FILE" "42 = 52 - 20 + 10" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "4+*X" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "4*5/2 = 10" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "X/2 = 1" >> "$OUTPUT_FILE" 2>&1
+./"$FILE" "2/X = 2" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "52 - 20 + 10 = 42" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "52 + - 20 + 10 = 2 +-40" >> "$OUTPUT_FILE" 2>&1
 ./"$FILE" "52 + - 20 + 10 = +-42" >> "$OUTPUT_FILE" 2>&1
