@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/28 05:38:59 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 05:55:00 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,7 @@ class FormulaParser
 		, _is_constant(true), _is_negative(false), _is_exponant(false)
 		, _is_multiplication(false), _is_division(false)
 		{
-			for (size_t i(0); i < _spaceless_formula.size(); i++)
-			{
-				if (_spaceless_formula[i] == ' ')
-				{
-					_spaceless_formula.erase(i, 1);
-					if (i > 0
-						&& isdigit(_spaceless_formula[i - 1])
-						&& isdigit(_spaceless_formula[i]))
-						throw std::invalid_argument("Invalid formula, dangling digits");
-					--i;
-				}
-			}
+			_remove_spaces();
 			parse_formula();
 		}
 		
@@ -87,6 +76,22 @@ class FormulaParser
 		}
 
 	private:
+		void _remove_spaces(void)
+		{
+			for (size_t i(0); i < _spaceless_formula.size(); i++)
+			{
+				if (_spaceless_formula[i] == ' ')
+				{
+					_spaceless_formula.erase(i, 1);
+					if (i > 0
+						&& isdigit(_spaceless_formula[i - 1])
+						&& isdigit(_spaceless_formula[i]))
+						throw std::invalid_argument("Invalid formula, dangling digits");
+					--i;
+				}
+			}
+		}
+
 		void parse_formula(void)
 		{
 			for (; _formula_index != _spaceless_formula.size() + 1; ++_formula_index)
@@ -253,7 +258,8 @@ class FormulaParser
 
 		void _unknown_case(void)
 		{
-			if (_is_division == true)
+			if (_is_division == true && _formula_index != 0	&&
+				isdigit(_spaceless_formula[_formula_index - 1]) == false)
 				throw std::invalid_argument("Division by unknown is not allowed");
 			if (_current_coefficient.has_value() == false)
 			{
