@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/28 05:55:00 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:29:20 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <exception>
 # include "EquationTerm.hpp"
 # include "math_functions.hpp"
+# include "strings_functions.hpp"
 
 class FormulaParser
 {
@@ -160,7 +161,9 @@ class FormulaParser
 			mpz_class check_unknown_degree(0);
 			size_t convert_offset(0);
 			
-			digit = std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
+			std::string str_digit(get_digits(_spaceless_formula.substr(_formula_index)));
+			digit.set_str(str_digit, 10);
+			convert_offset = str_digit.size();
 			if (_is_exponant == true)
 			{
 				if (_is_negative == true)

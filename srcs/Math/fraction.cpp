@@ -6,12 +6,13 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 20:35:08 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/25 17:29:10 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:07:07 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string>
 #include "math_functions.hpp"
+#include "strings_functions.hpp"
 #include <sstream>
 #include <iostream>
 
@@ -28,8 +29,6 @@ void reduce_fraction(mpz_class &numerator, mpz_class &denominator)
 	numerator /= gcd_value;
 	denominator /= gcd_value;
 }
-
-void to_string_formatter(std::string & str);
 
 void to_fraction(mpf_class decimal, mpz_class &numerator, mpz_class &denominator)
 {

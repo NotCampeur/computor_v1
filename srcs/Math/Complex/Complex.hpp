@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 16:58:54 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/23 13:05:21 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 06:06:51 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include <iostream>
 # include <gmpxx.h>
-
-void to_string_formatter(std::string & str);
+# include "strings_functions.hpp"
 
 // Structure to store complex numbers in the form of a + bi
 struct Complex
