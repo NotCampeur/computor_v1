@@ -23,7 +23,7 @@ Isolating coefficients: a = 0, b = 0, c = 0
  => All real numbers are solution.
 ===============================
 Equation: 4+*X
-Error: Signs should not be next to each other
+Error: Invalid formula, dangling signs
 ===============================
 Equation: 4*5/2 = 10
  | Simplified equation: 10 = 10 
@@ -57,6 +57,26 @@ First degree equation solution is:
 ===============================
 Equation: 2/X = 2
 Error: Division by unknown is not allowed
+===============================
+Equation: 2^2^2^2 = 256
+ | Simplified equation: 256 = 256 
+ | Reduced equation: 0 = 0
+
+Polynomial degree: 0
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
+===============================
+Equation: 4X^2^2^2 = 256X^8
+ | Simplified equation: 256X^8 = 256X^8 
+ | Reduced equation: 0 = 0
+
+Polynomial degree: 0
+
+Isolating coefficients: a = 0, b = 0, c = 0
+
+ => All real numbers are solution.
 ===============================
 Equation: 2/0 = singularity
 Error: Division by zero

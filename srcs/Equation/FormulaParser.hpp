@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/28 06:29:20 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 09:56:06 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ class FormulaParser
 						break;
 					case '*':
 					case '/':
+						if (_current_coefficient.has_value() == false)
+							throw std::invalid_argument("Invalid formula, dangling signs");
 						if (_formula_index != 0
 							&& isdigit(_spaceless_formula[_formula_index - 1]) == false
 							&& _spaceless_formula[_formula_index - 1] != 'X')
@@ -164,6 +166,19 @@ class FormulaParser
 			std::string str_digit(get_digits(_spaceless_formula.substr(_formula_index)));
 			digit.set_str(str_digit, 10);
 			convert_offset = str_digit.size();
+			while (_spaceless_formula[_formula_index + convert_offset] == '^'
+				&& _is_constant == true)
+			{
+				if (isdigit(_spaceless_formula[_formula_index + convert_offset + 1]) == false
+					&& _spaceless_formula[_formula_index + convert_offset + 1] != '-')
+				{
+					_formula_index += convert_offset - 1;
+					return;
+				}
+				str_digit = get_digits(_spaceless_formula.substr(_formula_index + convert_offset + 1));
+				convert_offset += str_digit.size() + 1;
+				digit = power(digit, mpf_class(str_digit, 10));
+			}
 			if (_is_exponant == true)
 			{
 				if (_is_negative == true)
@@ -186,6 +201,23 @@ class FormulaParser
 					check_unknown_degree = digit;
 					if (digit != check_unknown_degree)
 						throw std::invalid_argument("Invalid exponant");
+					while (_spaceless_formula[_formula_index + convert_offset] == '^')
+					{
+						if (isdigit(_spaceless_formula[_formula_index + convert_offset + 1]) == false
+							&& _spaceless_formula[_formula_index + convert_offset + 1] != '-')
+						{
+							_formula_index += convert_offset - 1;
+							return;
+						}
+						str_digit = get_digits(_spaceless_formula.substr(_formula_index + convert_offset + 1));
+						convert_offset += str_digit.size() + 1;
+						digit = str_digit;
+						_current_unknown_degree *= digit;
+						_current_coefficient = power(_current_coefficient.value(), digit);
+						check_unknown_degree = digit;
+						if (digit != check_unknown_degree)
+							throw std::invalid_argument("Invalid exponant");
+					}
 					_is_multiplication = false;
 					_is_division = false;
 				}
