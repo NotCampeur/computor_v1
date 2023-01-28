@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/28 05:22:06 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 05:38:59 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,32 +151,32 @@ class FormulaParser
 
 		void _digit_case(void)
 		{
-			mpf_class temporary_exponant(0.0f);
+			mpf_class digit(0.0f);
 			mpz_class check_unknown_degree(0);
 			size_t convert_offset(0);
 			
+			digit = std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
 			if (_is_exponant == true)
 			{
-				temporary_exponant = std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
 				if (_is_negative == true)
 				{
-					temporary_exponant *= -1;
+					digit *= -1;
 					_is_negative = false;
 				}
 				if (_is_constant == true)
 				{
-					_current_coefficient.value() = power(_current_coefficient.value(), temporary_exponant);
+					_current_coefficient.value() = power(_current_coefficient.value(), digit);
 				}
 				else if (_is_constant == false)
 				{
 					if (_is_division == true)
-						_current_unknown_degree -= temporary_exponant;
+						_current_unknown_degree -= digit;
 					else if (_is_multiplication == true)
-						_current_unknown_degree += temporary_exponant;
+						_current_unknown_degree += digit;
 					else
-						_current_unknown_degree = temporary_exponant;
-					check_unknown_degree = temporary_exponant;
-					if (temporary_exponant != check_unknown_degree)
+						_current_unknown_degree = digit;
+					check_unknown_degree = digit;
+					if (digit != check_unknown_degree)
 						throw std::invalid_argument("Invalid exponant");
 					_is_multiplication = false;
 					_is_division = false;
@@ -186,14 +186,18 @@ class FormulaParser
 			else
 			{
 				if (_is_division == true && _current_coefficient.has_value() == true)
-					_current_coefficient.value() /= std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
+				{
+					if (digit == 0)
+						throw std::invalid_argument("Division by zero");
+					_current_coefficient.value() /= digit;
+				}
 				else if (_is_multiplication == true && _current_coefficient.has_value() == true)
-					_current_coefficient.value() *= std::stof(_spaceless_formula.substr(_formula_index), &convert_offset);
+					_current_coefficient.value() *= digit;
 				else
 				{
 					if (_current_coefficient.has_value() == true)
 						throw std::invalid_argument("Looks like the formula is not well formatted");
-					_current_coefficient.emplace(std::stof(_spaceless_formula.substr(_formula_index), &convert_offset));
+					_current_coefficient.emplace(digit);
 				}
 				if (_is_negative == true)
 				{

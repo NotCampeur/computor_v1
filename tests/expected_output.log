@@ -58,6 +58,9 @@ First degree equation solution is:
 Equation: 2/X = 2
 Error: Division by unknown is not allowed
 ===============================
+Equation: 2/0 = singularity
+Error: Division by zero
+===============================
 Equation: 52 - 20 + 10 = 42
  | Simplified equation: 42 = 42 
  | Reduced equation: 0 = 0
