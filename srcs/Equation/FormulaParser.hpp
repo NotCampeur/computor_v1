@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/26 21:25:08 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/28 04:51:17 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ class FormulaParser
 						else if (isdigit(_spaceless_formula[_formula_index - 1]) == false
 							&& _spaceless_formula[_formula_index - 1] != 'X')
 							throw std::invalid_argument("Signs should not be next to each other");
+						[[fallthrough]];
 					case '\0':
 					case '=':
 						_plus_equal_null_case();
