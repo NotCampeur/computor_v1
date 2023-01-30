@@ -58,6 +58,16 @@ First degree equation solution is:
 Equation: 2/X = 2
 Error: Division by unknown is not allowed
 ===============================
+Equation: 2/2*2
+ | Simplified equation: 2 = 0
+ | Reduced equation: 2 = 0
+
+Polynomial degree: 0
+
+Isolating coefficients: a = 0, b = 0, c = 2
+
+ => There is no solution.
+===============================
 Equation: ^4
 Error: Invalid formula, dangling exponent
 ===============================

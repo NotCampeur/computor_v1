@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 04:42:43 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/28 22:14:57 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/01/30 16:14:33 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,9 +234,15 @@ class FormulaParser
 					if (digit == 0)
 						throw std::invalid_argument("Division by zero");
 					_current_coefficient.value() /= digit;
+					if (_spaceless_formula[_formula_index + convert_offset] != 'X')
+						_is_division = false;
 				}
 				else if (_is_multiplication == true && _current_coefficient.has_value() == true)
+				{
 					_current_coefficient.value() *= digit;
+					if (_spaceless_formula[_formula_index + convert_offset] != 'X')
+						_is_division = false;
+				}
 				else
 				{
 					if (_current_coefficient.has_value() == true)
