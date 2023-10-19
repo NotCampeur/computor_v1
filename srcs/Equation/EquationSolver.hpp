@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 11:21:46 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/01/25 17:47:44 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:20:50 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class EquationSolver
 		, _solutions{Complex(0.0f), Complex(0.0f)}
 		{
 			FormulaParser(formula).get_expression_terms(_first_expression_terms, _second_expression_terms);
-			_simplify_expressions();
+			simplify_expressions(_first_expression_terms, _second_expression_terms);
 			_reduce_expression();
 			std::cout << "Polynomial degree: " << _polynomial_degree << "\n\n";
 			_store_main_coefficients();
@@ -90,6 +90,63 @@ class EquationSolver
 				std::cout << " => There is no solution.\n";
 		}
 
+		// Simplify the expressions by removing terms with a coefficient of 0
+		// ,by computing the power of constant terms and by grouping alike terms
+		void simplify_expressions(
+			std::vector<EquationTerm>& p_first_expression_terms,
+			std::vector<EquationTerm>& p_second_expression_terms,
+			bool p_verbose = true)
+		{
+			for (std::vector<EquationTerm>::iterator it(p_first_expression_terms.begin());
+				it != p_first_expression_terms.end();
+				++it)
+			{
+				if (it->coefficient == 0.0f)
+				{
+					p_first_expression_terms.erase(it);
+					--it;
+				}
+			}
+			for (std::vector<EquationTerm>::iterator it(p_first_expression_terms.begin());
+				it != p_first_expression_terms.end();
+				++it)
+			{
+				for (std::vector<EquationTerm>::iterator it2(it + 1);
+					it2 != p_first_expression_terms.end();
+					++it2)
+				{
+					if (it->unknowns_degree == it2->unknowns_degree)
+					{
+						it->coefficient += it2->coefficient;
+						p_first_expression_terms.erase(it2);
+						--it;
+						break;
+					}
+				}
+			}
+			for (std::vector<EquationTerm>::iterator it(p_second_expression_terms.begin());
+				it != p_second_expression_terms.end();
+				++it)
+			{
+				if (it->coefficient == 0.0f)
+				{
+					p_second_expression_terms.erase(it);
+					--it;
+				}
+			}
+			if (p_verbose == false)
+				return;
+			std::cout << " | Simplified equation: ";
+			_print_terms(p_first_expression_terms);
+			std::cout << "= ";
+			if (p_second_expression_terms.size() == 0)
+				std::cout << "0\n";
+			else
+			{
+				_print_terms(p_second_expression_terms);
+				std::cout << '\n';
+			}
+		}
 	private:
 
 		void _print_fractional_solution(const Complex & solution) const
@@ -120,59 +177,6 @@ class EquationSolver
 					std::cout << " " << sign << ' ' << numerator << '/' << denominator << "i";
 			}
 			std::cout << "\n\n";
-		}
-
-		// Simplify the expressions by removing terms with a coefficient of 0
-		// ,by computing the power of constant terms and by grouping alike terms
-		void _simplify_expressions(void)
-		{
-			for (std::vector<EquationTerm>::iterator it(_first_expression_terms.begin());
-				it != _first_expression_terms.end();
-				++it)
-			{
-				if (it->coefficient == 0.0f)
-				{
-					_first_expression_terms.erase(it);
-					--it;
-				}
-			}
-			for (std::vector<EquationTerm>::iterator it(_first_expression_terms.begin());
-				it != _first_expression_terms.end();
-				++it)
-			{
-				for (std::vector<EquationTerm>::iterator it2(it + 1);
-					it2 != _first_expression_terms.end();
-					++it2)
-				{
-					if (it->unknowns_degree == it2->unknowns_degree)
-					{
-						it->coefficient += it2->coefficient;
-						_first_expression_terms.erase(it2);
-						--it;
-						break;
-					}
-				}
-			}
-			for (std::vector<EquationTerm>::iterator it(_second_expression_terms.begin());
-				it != _second_expression_terms.end();
-				++it)
-			{
-				if (it->coefficient == 0.0f)
-				{
-					_second_expression_terms.erase(it);
-					--it;
-				}
-			}
-			std::cout << " | Simplified equation: ";
-			_print_terms(_first_expression_terms);
-			std::cout << "= ";
-			if (_second_expression_terms.size() == 0)
-				std::cout << "0\n";
-			else
-			{
-				_print_terms(_second_expression_terms);
-				std::cout << '\n';
-			}
 		}
 
 		// Print the terms of an expression using EquationTerm::operator<<
