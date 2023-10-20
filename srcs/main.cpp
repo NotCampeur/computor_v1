@@ -6,7 +6,7 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 10:56:28 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/10/19 18:16:01 by ldutriez         ###   ########.fr       */
+/*   Updated: 2023/10/20 16:01:34 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,14 @@ int main(int ac, char **av)
 		std::cout << "Usage: " << av[0] << " [[--calculator] equation]\n\n";
 		std::cout << "\tEquation must be in the form: aX^2 + bX + c = 0\n";
 		std::cout << "\t\tExample: " << av[0] << " \"2X^2 + 3X + 4 = 0\"\n";
-		std::cout << "\n\tIf no equation is given, the program will read from stdin.\n";
+		std::cout << "\n\tIf no equation is given, the program will read from stdin.\n\n";
 		std::cout << "\tIf the argument \"--calculator\" is given:\n" <<
 					"\t\tthe program will just compute the input without unknowns." << std::endl;
 		return EXIT_SUCCESS;
 	}
 	else if (ac == 3 && strcmp(av[1], "--calculator") == 0)
 	{
-		std::vector<EquationTerm> first_expression;
-		std::vector<EquationTerm> second_expression;
-		FormulaParser(av[2]).get_expression_terms(first_expression, second_expression);
-		std::cout << first_expression[0] << std::endl;
+		EquationSolver solver(av[2], true);
 		return EXIT_SUCCESS;
 	}
 	else if (ac == 2)
