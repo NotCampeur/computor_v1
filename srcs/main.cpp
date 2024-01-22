@@ -6,14 +6,14 @@
 /*   By: ldutriez <ldutriez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 10:56:28 by ldutriez          #+#    #+#             */
-/*   Updated: 2023/10/20 16:01:34 by ldutriez         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:00:43 by ldutriez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor_v1.hpp"
 #include <cstring>
 
-int main(int ac, char **av)
+int main(int ac, char** av)
 {
 	if (ac == 1)
 	{
@@ -30,7 +30,7 @@ int main(int ac, char **av)
 				EquationSolver solver(equation);
 				solver.print_solutions();
 			}
-			catch (std::exception &e) {
+			catch (std::exception& e) {
 				std::cout << "Error: " << e.what() << std::endl;
 			}
 		}
@@ -42,12 +42,21 @@ int main(int ac, char **av)
 		std::cout << "\t\tExample: " << av[0] << " \"2X^2 + 3X + 4 = 0\"\n";
 		std::cout << "\n\tIf no equation is given, the program will read from stdin.\n\n";
 		std::cout << "\tIf the argument \"--calculator\" is given:\n" <<
-					"\t\tthe program will just compute the input without unknowns." << std::endl;
+			"\t\tthe program will just compute the input without unknowns." << std::endl;
 		return EXIT_SUCCESS;
 	}
 	else if (ac == 3 && strcmp(av[1], "--calculator") == 0)
 	{
-		EquationSolver solver(av[2], true);
+		try
+		{
+			EquationSolver solver(av[2], true);
+		}
+		catch (std::exception& e)
+		{
+			std::cout << "Error: " << e.what() <<
+				"\nNote that in this mode unknown are not handled" << std::endl;
+			return EXIT_FAILURE;
+		}
 		return EXIT_SUCCESS;
 	}
 	else if (ac == 2)
@@ -58,7 +67,7 @@ int main(int ac, char **av)
 			EquationSolver solver(av[1]);
 			solver.print_solutions();
 		}
-		catch (std::exception &e) {
+		catch (std::exception& e) {
 			std::cout << "Error: " << e.what() << std::endl;
 			return EXIT_FAILURE;
 		}
