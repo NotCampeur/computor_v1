@@ -7,7 +7,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 42 = 4 2
 Error: Invalid formula, dangling digits
@@ -20,7 +20,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 4+*X
 Error: Invalid formula, dangling signs
@@ -33,7 +33,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: X/2 = 1
  | Simplified equation: 0.5X = 1 
@@ -82,7 +82,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 4X^2^2^2 = 256X^8
  | Simplified equation: 256X^8 = 256X^8 
@@ -92,7 +92,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 2/0 = singularity
 Error: Division by zero
@@ -105,7 +105,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 52 + - 20 + 10 = 2 +-40
 Error: Signs should not be next to each other
@@ -134,7 +134,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 10^1.5 = 31.6227
  | Simplified equation: 31.6227 = 31.6227 
@@ -144,7 +144,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 5^
 Error: Formula looks incomplete
@@ -163,7 +163,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 54e2 = 0
 Error: Unexpected character found in the formula: e
@@ -176,7 +176,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 42 * X^0 = 42 * X^0
  | Simplified equation: 42 = 42 
@@ -186,7 +186,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 42 * X^1 = 42 * X^1
  | Simplified equation: 42X = 42X 
@@ -196,7 +196,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0
  | Simplified equation: 5 + 4X - 9.3X^2 = 1 
@@ -258,7 +258,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 5 * X^0 + 4 * X^1 = 4 * X^0
  | Simplified equation: 5 + 4X = 4 
@@ -319,7 +319,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: 4X*-5X
  | Simplified equation: -20X^2 = 0
@@ -424,7 +424,7 @@ Polynomial degree: 0
 
 Isolating coefficients: a = 0, b = 0, c = 0
 
- => All real numbers are solution.
+ => All complex numbers are solution.
 ===============================
 Equation: X^4 * X^-2 + X + 14 = 17
  | Simplified equation: X^2 + X + 14 = 17 
